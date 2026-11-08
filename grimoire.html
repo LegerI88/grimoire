@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Grimoire des Étoiles – Hall du Livre – CAP EPC 1EPC3 – LEGER Isabelle</title>
+<meta name="author" content="LEGER Isabelle – Enseignante en Économie-Gestion">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --night:#0b1030; --night2:#18205a; --gold:#f5c451; --gold2:#ffe08f; --parch:#fffaf0; --parch2:#f6ecd6;
+  --ink:#2a2340; --muted:#6b6385; --p1:#14a398; --p2:#8b5cf6; --p3:#ef6f6c; --ok:#1f9d55; --ko:#d64545;
+  --r:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
+  --title:'Cinzel Decorative', Georgia, 'Times New Roman', serif;
+  --body:'Nunito', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--body);color:var(--ink);background:radial-gradient(ellipse at top,#26307a 0%,var(--night) 55%,#05071a 100%);min-height:100vh;font-size:17px;line-height:1.5}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+#app{position:relative;z-index:1}
+button{font-family:inherit;cursor:pointer}
+a{color:#5b3fd1}
+/* ---------- top bar ---------- */
+.top{position:sticky;top:0;z-index:20;background:rgba(9,13,40,.82);backdrop-filter:blur(8px);border-bottom:1px solid rgba(245,196,81,.35);color:#fff}
+.top .in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:10px 16px;flex-wrap:wrap}
+.brand{font-family:var(--title);color:var(--gold);font-size:19px;letter-spacing:.5px;white-space:nowrap}
+.constel{display:flex;gap:3px;align-items:center;margin-left:auto}
+.constel .g{display:flex;gap:2px;padding:3px 6px;border-radius:20px;background:rgba(255,255,255,.07)}
+.constel .s{font-size:18px;color:#3a4280;transition:.4s;line-height:1}
+.constel .s.on{color:var(--gold);text-shadow:0 0 10px var(--gold)}
+.who{font-size:14px;opacity:.9}
+.iconbtn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:10px;padding:6px 10px;font-size:15px}
+nav.tabs{max-width:1180px;margin:0 auto;display:flex;gap:6px;padding:0 16px 10px;flex-wrap:wrap}
+nav.tabs button{background:transparent;border:1px solid rgba(245,196,81,.35);color:#f3e9cf;padding:7px 13px;border-radius:30px;font-weight:700;font-size:14.5px}
+nav.tabs button.act{background:var(--gold);color:var(--night);border-color:var(--gold)}
+nav.tabs button.lock{margin-left:auto}
+main{max-width:1180px;margin:0 auto;padding:22px 16px 80px}
+/* ---------- generic cards ---------- */
+.card{background:var(--parch);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 24px;margin-bottom:20px;position:relative}
+.card.dark{background:rgba(16,22,64,.85);color:#f3eedf;border:1px solid rgba(245,196,81,.3)}
+h1,h2,h3{margin:.2em 0 .5em;line-height:1.2}
+h1,h2.t{font-family:var(--title);color:var(--gold)}
+h2{font-size:26px} h3{font-size:20px}
+.muted{color:var(--muted)}
+.pill{display:inline-block;padding:3px 11px;border-radius:20px;font-size:13px;font-weight:800;color:#fff}
+.p1bg{background:var(--p1)} .p2bg{background:var(--p2)} .p3bg{background:var(--p3)}
+.note{background:#fff3cd;border-left:5px solid var(--gold);padding:10px 14px;border-radius:8px;font-size:15px}
+.fict{background:#eef4ff;border-left:5px solid #6d8bff;padding:10px 14px;border-radius:8px;font-size:14.5px}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:8px 0}
+th,td{border:1px solid #d9cfb4;padding:7px 9px;text-align:left;vertical-align:middle}
+th{background:#efe3c4;font-weight:800}
+tr:nth-child(even) td{background:#fffdf7}
+.tbl-wrap{overflow-x:auto}
+.btn{background:linear-gradient(135deg,var(--gold),#e9a93a);color:#2b1a00;border:none;padding:12px 22px;border-radius:40px;font-weight:800;font-size:16.5px;box-shadow:0 6px 18px rgba(245,196,81,.35);transition:transform .15s}
+.btn:hover{transform:translateY(-2px) scale(1.02)}
+.btn.sec{background:#fff;color:var(--ink);box-shadow:none;border:2px solid #d8cfb8}
+.btn.small{padding:7px 14px;font-size:14px}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+/* ---------- intro ---------- */
+.intro{min-height:88vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;color:#fff;padding:20px}
+.book{width:min(560px,92vw);background:linear-gradient(160deg,#5a2b16,#2f1309);border-radius:12px 22px 22px 12px;padding:34px 30px;box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 0 0 6px #7a4320,inset 0 0 0 9px var(--gold);position:relative;animation:float 5s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.book h1{font-size:clamp(26px,5vw,40px);margin:4px 0 8px;text-shadow:0 0 18px rgba(245,196,81,.6)}
+.book .sub{color:#f8e2b0;font-size:16px;margin-bottom:18px}
+.book .owl{font-size:56px;filter:drop-shadow(0 0 14px rgba(255,224,143,.7))}
+.book input,.book select{width:100%;padding:12px 14px;border-radius:10px;border:2px solid #c99a3d;background:#fff8e7;font-size:17px;margin:6px 0;font-family:inherit}
+.book label{display:block;text-align:left;color:#f8e2b0;font-weight:700;font-size:14px;margin-top:8px}
+.opening{animation:openbook 1.1s forwards}
+@keyframes openbook{0%{transform:scale(1)}40%{transform:scale(1.06) rotateY(0)}100%{transform:scale(.2) rotateY(80deg);opacity:0}}
+/* ---------- map ---------- */
+.tower{display:flex;flex-direction:column;gap:18px}
+.floor{border-radius:22px;padding:18px 20px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.floor.f1{background:linear-gradient(135deg,#0e6d66,#14a398)}
+.floor.f2{background:linear-gradient(135deg,#5b30c9,#8b5cf6)}
+.floor.f3{background:linear-gradient(135deg,#c2413f,#ef6f6c)}
+.floor h3{margin:0;font-family:var(--title);font-size:21px}
+.floor .lvl{font-size:13px;opacity:.9;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.doors{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px}
+.door{background:rgba(255,255,255,.95);color:var(--ink);border-radius:16px;padding:14px;border:none;text-align:left;transition:.2s;position:relative}
+.door:hover{transform:translateY(-4px) rotate(-.4deg);box-shadow:0 12px 24px rgba(0,0,0,.25)}
+.door .ic{font-size:30px}
+.door .nm{font-weight:800;font-size:16.5px;margin:4px 0}
+.door .st{font-size:14px;color:var(--muted)}
+.door .stars{position:absolute;top:10px;right:12px;font-size:18px;color:#d8d2c2;letter-spacing:1px}
+.door .stars b{color:#f0b429;font-weight:400}
+.door.done{outline:3px solid var(--gold)}
+.sparkle-bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.35) 1px,transparent 1.5px);background-size:22px 22px;opacity:.35;pointer-events:none}
+.owlbar{display:flex;gap:14px;align-items:center}
+.owlbar .o{font-size:46px}
+.speech{background:#fff;color:var(--ink);border-radius:18px;padding:12px 16px;position:relative;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+.speech::before{content:"";position:absolute;left:-10px;top:20px;border:10px solid transparent;border-right-color:#fff;border-left:0}
+/* ---------- mission ---------- */
+.mhead{border-radius:var(--r);padding:20px 24px;color:#fff;margin-bottom:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.mhead.p1{background:linear-gradient(135deg,#0e6d66,#14a398)}
+.mhead.p2{background:linear-gradient(135deg,#5b30c9,#8b5cf6)}
+.mhead.p3{background:linear-gradient(135deg,#c2413f,#ef6f6c)}
+.mhead h2{font-family:var(--title);margin:6px 0;font-size:25px}
+.comp{background:rgba(255,255,255,.18);border-radius:10px;padding:6px 12px;display:inline-block;font-size:14.5px;margin-top:6px}
+.tutor{display:flex;gap:14px;align-items:flex-start}
+.tutor .av{font-size:44px;line-height:1}
+.tutor .speech{flex:1}
+.tutor .name{font-weight:800;font-size:14px;color:var(--muted)}
+details.res{background:#fffdf6;border:2px dashed #d6c79c;border-radius:14px;padding:6px 16px;margin:16px 0}
+details.res>summary{font-weight:800;font-size:18px;cursor:pointer;padding:8px 0;list-style:none}
+details.res>summary::before{content:"📜 "}
+.doc{background:#fff;border:1px solid #e3d8bb;border-radius:12px;padding:12px 16px;margin:12px 0;box-shadow:0 3px 8px rgba(0,0,0,.05)}
+.doc h4{margin:0 0 6px;font-size:16px;color:#6b3e14}
+.sect{margin-top:8px}
+.sect>h3{display:flex;align-items:center;gap:8px}
+.w{background:#fff;border-radius:14px;padding:14px 16px;margin:14px 0;border:2px solid #efe6cf;position:relative;transition:border-color .3s}
+.w .q{font-weight:800;margin-bottom:8px}
+.w.ok{border-color:var(--ok);background:#f2fbf5}
+.w.ko{border-color:var(--ko);background:#fff5f5}
+.w.part{border-color:#e6a23c;background:#fffaf0}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #e8dfc8;border-radius:12px;padding:9px 12px;cursor:pointer;background:#fffdf8;transition:.15s}
+.opt:hover{border-color:var(--gold)}
+.opt input{margin-top:4px;transform:scale(1.25)}
+.opt.sel{border-color:#c9a13b;background:#fff6dc}
+.opt.good{border-color:var(--ok)!important;background:#e9f8ef!important}
+.opt.bad{border-color:var(--ko)!important;background:#fdecec!important}
+.chat .opt{border-radius:18px 18px 18px 4px}
+.scene{background:#f1ecff;border-radius:12px;padding:8px 12px;margin-bottom:8px;font-style:italic}
+input.in,textarea.in,select.in{font-family:inherit;font-size:16px;padding:8px 10px;border:2px solid #d8cdb0;border-radius:10px;background:#fffef9;color:var(--ink)}
+input.in:focus,textarea.in:focus,select.in:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,196,81,.3)}
+input.num{width:120px;text-align:right}
+td input.in{width:100%;min-width:80px}
+textarea.in{width:100%;min-height:80px;resize:vertical}
+input.in.ok,select.in.ok{border-color:var(--ok);background:#ecf9f1}
+input.in.ko,select.in.ko{border-color:var(--ko);background:#fdeeee}
+.mk{font-weight:800;margin-left:6px}
+.mk.ok{color:var(--ok)} .mk.ko{color:var(--ko)}
+.corr{display:inline-block;background:#e7f7ec;color:#126b3a;border:1px dashed #52b47a;border-radius:8px;padding:1px 8px;font-size:13.5px;font-weight:800;margin-left:6px}
+.hint{margin-top:8px}
+.hint summary{cursor:pointer;color:#7c5a0b;font-weight:700;font-size:14.5px}
+.hint div{background:#fff7dd;border-radius:10px;padding:8px 12px;margin-top:6px;font-size:15px}
+.order li{list-style:none;display:flex;align-items:center;gap:8px;background:#fffdf8;border:2px solid #e8dfc8;border-radius:12px;padding:8px 10px;margin:6px 0}
+.order ol{padding:0;margin:0}
+.order .n{background:var(--gold);color:#2b1a00;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-weight:800;flex:none}
+.order .tx{flex:1}
+.order button{border:1px solid #d8cdb0;background:#fff;border-radius:8px;padding:4px 9px;font-size:15px}
+.order li.ok{border-color:var(--ok);background:#ecf9f1}
+.order li.ko{border-color:var(--ko);background:#fdeeee}
+/* reserve grid */
+.gridw{display:flex;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.gitems{flex:1;min-width:240px}
+.gitem{display:flex;justify-content:space-between;gap:8px;align-items:center;border:2px solid #e8dfc8;border-radius:12px;padding:9px 12px;margin:6px 0;cursor:pointer;background:#fffdf8}
+.gitem.active{border-color:var(--p1);box-shadow:0 0 0 3px rgba(20,163,152,.25)}
+.gitem .loc{font-weight:800;background:#e8f6f4;border-radius:8px;padding:2px 9px;color:#0e6d66}
+.gitem.ok{border-color:var(--ok)} .gitem.ko{border-color:var(--ko)}
+.reserve{display:grid;grid-template-columns:44px repeat(3,96px);gap:6px;background:#3b2a1a;padding:10px;border-radius:14px;color:#fff}
+.reserve .h{text-align:center;font-weight:800;font-size:14px;color:var(--gold2)}
+.reserve .lv{display:flex;align-items:center;justify-content:center;font-size:13px;color:#e8d7b5}
+.reserve .cell{height:58px;border-radius:8px;background:repeating-linear-gradient(90deg,#8a5a2b 0 9px,#a8743d 9px 11px,#6b3e1a 11px 20px);border:2px solid #5a3a1a;cursor:pointer;position:relative;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:flex-end;justify-content:center;transition:.15s}
+.reserve .cell:hover{transform:scale(1.05);border-color:var(--gold)}
+.reserve .cell span{background:rgba(0,0,0,.55);border-radius:6px;padding:0 5px;margin-bottom:3px}
+.reserve .cell.picked{box-shadow:0 0 0 3px var(--gold),0 0 18px var(--gold)}
+/* cash */
+.cashbox{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.bill{width:92px;height:50px;border-radius:7px;border:2px solid rgba(0,0,0,.25);font-weight:800;font-size:17px;color:#1c1c1c;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 6px rgba(0,0,0,.2)}
+.b20{background:linear-gradient(135deg,#b8d4f5,#6f9fd8)} .b10{background:linear-gradient(135deg,#f7c4b4,#e48b72)} .b5{background:linear-gradient(135deg,#d9d9d9,#a9a9a9)}
+.coin{width:52px;height:52px;border-radius:50%;border:3px solid rgba(0,0,0,.2);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 6px rgba(0,0,0,.25)}
+.cg{background:radial-gradient(circle at 35% 30%,#fff3b0,#d4a72c)} .cb{background:radial-gradient(circle at 35% 30%,#ffd0a8,#b8652c)} .cbi{background:radial-gradient(circle,#e9e9e9 45%,#d4a72c 46%)}
+.tray{min-height:70px;border:3px dashed #c9b88e;border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;background:#fbf6e8}
+.tray>*{transform:scale(.85);cursor:pointer}
+/* label & card annex */
+.label{border:3px dashed #555;border-radius:12px;padding:16px;background:#fff;max-width:560px;font-family:'Courier New',monospace}
+.label .lt{font-weight:800;font-size:18px;letter-spacing:2px;border-bottom:2px solid #333;margin-bottom:10px}
+.label .fl{display:grid;grid-template-columns:180px 1fr;gap:8px;align-items:center;margin:6px 0}
+.plv{width:280px;min-height:330px;border-radius:16px;padding:18px;background:linear-gradient(160deg,#1d2366,#3b1f73);color:#fff;box-shadow:0 0 0 4px var(--gold),0 14px 30px rgba(0,0,0,.35);position:relative;overflow:hidden}
+.plv .cc{font-family:var(--title);color:var(--gold);font-size:20px}
+.plv .tt{font-weight:800;font-size:19px;margin:10px 0 4px}
+.plv .ag{display:inline-block;background:var(--gold);color:#2b1a00;border-radius:20px;padding:1px 10px;font-weight:800;font-size:13px}
+.plv .av{margin-top:10px;font-style:italic;white-space:pre-wrap}
+.plv .pr{position:absolute;bottom:14px;right:16px;font-size:26px;font-weight:800;color:var(--gold2)}
+.plv .sg{position:absolute;bottom:18px;left:16px;font-size:13px;opacity:.85}
+.free label{font-weight:800;display:block;margin-bottom:4px}
+.free input.in{width:100%}
+/* validate */
+.valid{text-align:center;padding:24px}
+.result{display:flex;align-items:center;gap:20px;justify-content:center;flex-wrap:wrap}
+.ring{width:130px;height:130px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;background:conic-gradient(var(--gold) calc(var(--p)*1%),#e9e1cc 0);position:relative}
+.ring::after{content:"";position:absolute;inset:12px;background:var(--parch);border-radius:50%}
+.ring span{position:relative;z-index:1}
+.bigstars{font-size:40px;color:#ddd3bb;letter-spacing:4px}
+.bigstars b{color:#f0b429;text-shadow:0 0 14px rgba(240,180,41,.7);font-weight:400}
+/* modal & toast */
+.modal{position:fixed;inset:0;background:rgba(5,7,26,.7);z-index:50;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal .box{background:var(--parch);border-radius:20px;max-width:540px;width:100%;padding:24px;box-shadow:var(--shadow);text-align:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1a2160;color:#fff;border:1px solid var(--gold);padding:12px 20px;border-radius:30px;z-index:60;box-shadow:var(--shadow);animation:tin .3s}
+@keyframes tin{from{opacity:0;transform:translate(-50%,20px)}}
+.burst{position:fixed;z-index:70;pointer-events:none;color:var(--gold);font-size:22px;animation:fly 1.5s ease-out forwards;text-shadow:0 0 10px var(--gold)}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) rotate(var(--rot)) scale(.4);opacity:0}}
+/* bilan & teacher */
+.code{font-family:'Courier New',monospace;font-size:clamp(24px,5vw,38px);font-weight:800;letter-spacing:3px;background:#1a2160;color:var(--gold2);padding:14px 22px;border-radius:14px;display:inline-block;border:2px solid var(--gold);user-select:all}
+.bar{height:16px;background:#ece4cf;border-radius:10px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:10px}
+.lv1{background:#e05d5d}.lv2{background:#f0a03c}.lv3{background:#7cc36a}.lv4{background:#1f9d55}
+.ae{display:flex;gap:6px;flex-wrap:wrap}
+.ae button{border:2px solid #e3d8bb;background:#fff;border-radius:12px;padding:6px 10px;font-size:14px}
+.ae button.on{border-color:var(--gold);background:#fff2c8;font-weight:800}
+.kpi{display:flex;gap:12px;flex-wrap:wrap}
+.kpi div{flex:1;min-width:140px;background:#fff;border-radius:14px;padding:12px;text-align:center;border:2px solid #efe6cf}
+.kpi b{display:block;font-size:28px}
+.tag{display:inline-block;border-radius:8px;padding:1px 8px;font-size:13px;font-weight:800}
+.quiz .opt{font-size:15px}
+.src{font-size:14px}
+.src li{margin:5px 0}
+sup{font-size:11px;color:#6d5bd0;font-weight:800}
+#printArea{display:none}
+@media print{
+  body{background:#fff!important;font-size:12px}
+  #sky,#app,.toast,.modal{display:none!important}
+  #printArea{display:block!important;color:#000}
+  #printArea h1{color:#000;font-family:Georgia,serif}
+  #printArea .pm{page-break-inside:avoid;border:1px solid #999;border-radius:8px;padding:8px 12px;margin:8px 0}
+  .diploma{page-break-after:always}
+}
+.diploma{border:10px double #b8892c;border-radius:20px;padding:40px;text-align:center;background:#fffaf0;font-family:Georgia,serif;color:#2a2340}
+.diploma h1{font-family:var(--title);color:#9a6b12;font-size:34px}
+@media (max-width:640px){
+  h2{font-size:22px}
+  .reserve{grid-template-columns:34px repeat(3,1fr)}
+  .label .fl{grid-template-columns:1fr}
+  .constel{margin-left:0}
+}
+/* ===== animations v2 ===== */
+.brand{background:linear-gradient(90deg,#f5c451 0%,#fff6d6 25%,#f5c451 50%,#ffe08f 75%,#f5c451 100%);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.anim-in{animation:fadeUp .6s cubic-bezier(.2,.8,.3,1.2) both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px) scale(.97)}}
+.wd{display:inline-block;animation:wd .45s both}
+@keyframes wd{from{opacity:0;transform:translateY(6px);filter:blur(3px)}}
+.bob{display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
+.glowt{animation:glowt 3s ease-in-out infinite}
+@keyframes glowt{50%{text-shadow:0 0 30px rgba(255,224,143,.95),0 0 60px rgba(245,196,81,.5)}}
+.btn{position:relative;overflow:hidden}
+.btn::after{content:"";position:absolute;top:0;left:-70%;width:45%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.65),transparent);transform:skewX(-20deg);animation:sweep 4s ease-in-out infinite;pointer-events:none}
+.btn.sec::after{display:none}
+@keyframes sweep{0%,60%{left:-70%}100%{left:130%}}
+.btn.pulse{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,196,81,.7)}60%{box-shadow:0 0 0 16px rgba(245,196,81,0)}}
+.floor{background-size:200% 200%!important;animation:shift 9s ease-in-out infinite alternate}
+@keyframes shift{to{background-position:100% 100%}}
+.floor.lit{box-shadow:0 0 0 3px var(--gold),0 0 40px rgba(245,196,81,.55)}
+.lamps{margin-left:8px;letter-spacing:2px}
+.door{transform-style:preserve-3d;transition:transform .25s,box-shadow .25s}
+.door:hover{transform:perspective(600px) rotateY(-8deg) translateY(-5px)!important;box-shadow:0 14px 30px rgba(0,0,0,.3),0 0 22px rgba(255,224,143,.6)}
+.door .ic{display:inline-block;transition:transform .3s}
+.door:hover .ic{transform:scale(1.3) rotate(-10deg)}
+.door.done{animation:doneglow 2.6s ease-in-out infinite}
+@keyframes doneglow{50%{box-shadow:0 0 22px rgba(245,196,81,.85)}}
+.dstar{position:absolute;top:8px;right:12px;font-size:26px;color:#d8d2c2}
+.dstar.on{color:#f0b429;animation:twk 1.8s ease-in-out infinite;text-shadow:0 0 12px #f5c451}
+@keyframes twk{50%{transform:scale(1.25) rotate(15deg)}}
+.flyowl{position:fixed;top:30%;left:-80px;font-size:48px;z-index:40;pointer-events:none;animation:flyacross 7s 1.2s ease-in-out forwards}
+@keyframes flyacross{0%{left:-80px;transform:translateY(0) rotate(10deg)}25%{transform:translateY(-60px) rotate(-8deg)}50%{transform:translateY(20px) rotate(8deg)}75%{transform:translateY(-40px) rotate(-6deg)}100%{left:calc(100vw + 80px);transform:translateY(0)}}
+
+@keyframes spop{40%{transform:scale(2.4);text-shadow:0 0 22px #fff}}
+.constel .s.on{animation:twk 3s ease-in-out infinite}
+.constel .s.on.pop{animation:spop .8s}
+.prow{display:flex;align-items:center;gap:12px;margin-top:12px}
+.prog{flex:1;max-width:420px;height:12px;background:rgba(0,0,0,.25);border-radius:10px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffe08f,#f5c451,#fff3c4);background-size:200% 100%;border-radius:10px;transition:width .6s cubic-bezier(.2,.8,.3,1.2);animation:shine 2.5s linear infinite}
+#progt{font-weight:800;font-size:14px}
+.opt.sel{animation:optpop .3s}
+@keyframes optpop{50%{transform:scale(1.025)}}
+.flash{animation:flash .5s}
+@keyframes flash{30%{box-shadow:0 0 0 4px rgba(245,196,81,.6)}}
+.tray>*:last-child{animation:drop .4s cubic-bezier(.3,1.6,.5,1)}
+@keyframes drop{from{transform:translateY(-40px) scale(.85);opacity:0}}
+.reserve .cell.picked{animation:pick 1.4s ease-in-out infinite}
+@keyframes pick{50%{box-shadow:0 0 0 3px var(--gold),0 0 28px var(--gold)}}
+.order li{transition:transform .2s}
+.order li:hover{transform:translateX(4px)}
+.aegrid{background:linear-gradient(160deg,#fffaf0,#f3ecff)}
+.aet th.c,.aet td.c{text-align:center;width:13%}
+.aeb{font-size:24px;width:52px;height:52px;border-radius:50%;border:2px solid #e3d8bb;background:#fff;transition:.2s;filter:grayscale(.85);opacity:.6}
+.aeb:hover:not(:disabled){transform:scale(1.15);filter:none;opacity:1}
+.aeb.on{filter:none;opacity:1;border-color:var(--gold);background:#fff2c8;box-shadow:0 0 0 4px rgba(245,196,81,.35),0 0 16px rgba(245,196,81,.6);animation:optpop .35s}
+.aeb:disabled{cursor:default}
+.shake{animation:shake .5s}
+@keyframes shake{20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.done-card .bigstar{font-size:90px;color:#f0b429;text-shadow:0 0 30px #f5c451;animation:twk 2.2s ease-in-out infinite;line-height:1}
+.portal{position:fixed;width:24px;height:24px;border-radius:50%;z-index:80;transform:translate(-50%,-50%) scale(0);animation:portalIn .5s cubic-bezier(.6,0,.4,1) forwards;pointer-events:none}
+@keyframes portalIn{to{transform:translate(-50%,-50%) scale(160)}}
+.portal.out{animation:portalOut .5s forwards;transform:translate(-50%,-50%) scale(160)}
+@keyframes portalOut{to{opacity:0}}
+.ritual{position:fixed;inset:0;z-index:90;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(circle,rgba(40,30,90,.92),rgba(5,7,26,.96));transition:background .8s;animation:rin .4s}
+@keyframes rin{from{opacity:0}}
+.ritual .circle{position:absolute;width:min(420px,85vw);height:min(420px,85vw);animation:spin 9s linear infinite,grow .9s cubic-bezier(.2,.8,.3,1.3);filter:drop-shadow(0 0 14px var(--pc))}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes grow{from{transform:scale(0) rotate(-180deg)}}
+.ritual .rstar{font-size:130px;color:#ffe08f;text-shadow:0 0 40px #f5c451,0 0 80px var(--pc);position:relative;animation:rstar 1.2s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes rstar{from{transform:scale(0) rotate(-200deg)}}
+.ritual .rtxt{position:relative;font-family:var(--title);color:#ffe08f;font-size:clamp(24px,4vw,36px);text-align:center;margin-top:10px;animation:fadeUp .8s .5s both}
+.ritual .rtxt small{display:block;font-family:var(--body);font-size:16px;color:#e8e2ff;margin-top:6px}
+.ritual.fade{background:transparent;pointer-events:none}
+.ritual.fade .circle,.ritual.fade .rtxt{opacity:0;transition:opacity .4s}
+.trail{position:fixed;z-index:95;pointer-events:none;color:#ffe08f;font-size:14px;transform:translate(-50%,-50%);animation:trail .9s ease-out forwards;text-shadow:0 0 8px #f5c451}
+@keyframes trail{to{opacity:0;transform:translate(-50%,30px) scale(.3) rotate(90deg)}}
+.sparkring{position:fixed;left:50%;top:50%;width:0;height:0;z-index:0;pointer-events:none}
+.sparkring i{position:absolute;color:#ffe08f;font-style:normal;font-size:20px;text-shadow:0 0 10px #f5c451;transform:rotate(var(--a)) translateX(min(330px,46vw)) rotate(calc(-1*var(--a)));animation:orbit 14s linear infinite,twk 2s var(--d) ease-in-out infinite}
+@keyframes orbit{to{transform:rotate(calc(var(--a) + 360deg)) translateX(min(330px,46vw)) rotate(calc(-1*var(--a) - 360deg))}}
+.sparkring.boom i{transition:transform .9s,opacity .9s;opacity:0}
+.intro .book{z-index:1}
+.author{margin-top:14px;color:#ffe08f;font-size:14px;border-top:1px solid rgba(245,196,81,.4);padding-top:10px}
+.foot{position:relative;z-index:1;text-align:center;color:#cfc8ef;font-size:13px;padding:18px 16px 30px;border-top:1px solid rgba(245,196,81,.2);max-width:1180px;margin:0 auto}
+.consvg{width:100%;max-width:720px;margin:6px auto}
+.consvg line{stroke-width:2.5}
+.consvg .loff{stroke:#3a4280;stroke-dasharray:4 6}
+.consvg .lon{stroke:#f5c451;stroke-dasharray:400;stroke-dashoffset:400;animation:draw 1.6s .4s forwards;filter:drop-shadow(0 0 6px #f5c451)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.consvg .soff circle{fill:#2b3370;stroke:#4a54a0}
+.consvg .son circle{fill:#ffe08f;filter:drop-shadow(0 0 10px #f5c451);transform-box:fill-box;transform-origin:center;animation:twk 2.4s ease-in-out infinite}
+.consvg text{fill:#cfc8ef;font-size:14px;font-weight:800;font-family:var(--body)}
+.kpi.dk div{background:rgba(255,255,255,.08);border-color:rgba(245,196,81,.3);color:#f3eedf}
+.kpi.dk b{color:var(--gold)}
+.plv{animation:plvglow 3s ease-in-out infinite}
+@keyframes plvglow{50%{box-shadow:0 0 0 4px var(--gold),0 0 36px rgba(245,196,81,.7)}}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<div id="app"></div>
+<div id="printArea"></div>
+<script>
+'use strict';
+/* =====================================================================
+   LE GRIMOIRE DES ÉTOILES – Scénario pédagogique CAP EPC (1re année)
+   Enseigne support : Le Hall du Livre, 53-55 rue Saint-Dizier, Nancy
+   Scénario conçu par LEGER Isabelle, enseignante en Économie-Gestion.
+   Situation professionnelle FICTIVE à visée pédagogique.
+   ===================================================================== */
+const SALT = 'Bergamote*Stan54';
+const T_HASH = 2170883695;            // empreinte du code enseignant
+const STORE = 'grimoire_hdl_epc_v1';
+const ALPH = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+
+function fnv(s){let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)}return h>>>0}
+const mem = {};
+const store = {
+  get(k){try{return localStorage.getItem(k)}catch(e){return mem[k]??null}},
+  set(k,v){try{localStorage.setItem(k,v)}catch(e){mem[k]=v}}
+};
+function fresh(){return {eleve:null,m:{},auto:{1:[],2:[],3:[]},sound:false,decouv:{}}}
+let S; try{S = JSON.parse(store.get(STORE)||'null') || fresh()}catch(e){S = fresh()}
+function save(){store.set(STORE, JSON.stringify(S))}
+let TEACH = false, SHOWANS = false, VIEW = 'intro', CUR = null, GRIDSEL = {};
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------------------------------------------------------------
+   DONNÉES : PÔLES (référentiel CAP EPC, arrêté du 29 octobre 2019)
+--------------------------------------------------------------------- */
+const POLES = {
+ 1:{nom:'Recevoir et suivre les commandes', lieu:'La Réserve des Grimoires', ep:'EP1', ic:'📦',
+    comps:['Participer à la passation des commandes fournisseurs','Réceptionner','Stocker','Préparer les commandes destinées aux clients']},
+ 2:{nom:'Mettre en valeur et approvisionner', lieu:'La Galerie des Merveilles', ep:'EP2', ic:'✨',
+    comps:['Approvisionner, mettre en rayon et ranger selon la nature des produits','Mettre en valeur les produits et l\'espace commercial','Participer aux opérations de conditionnement des produits','Installer et mettre à jour la signalétique','Lutter contre la démarque et participer aux opérations d\'inventaire']},
+ 3:{nom:'Conseiller et accompagner le client dans son parcours d\'achat', lieu:'Le Salon des Conseils', ep:'EP3', ic:'💬',
+    comps:['Préparer son environnement de travail','Prendre contact avec le client','Accompagner le parcours client dans un contexte omnicanal','Conseiller le client','Finaliser la prise en charge du client','Recevoir les réclamations courantes']}
+};
+const AE_LV = [
+ {v:1,e:'🌱',t:'Je débute'},{v:2,e:'🌤️',t:'Je progresse'},{v:3,e:'⭐',t:'Je maîtrise'},{v:4,e:'🌟',t:'Je suis expert(e)'}
+];
+
+/* ---------------------------------------------------------------------
+   DONNÉES : 9 MISSIONS (10 points chacune)
+--------------------------------------------------------------------- */
+const M = [
+/* ============================ MISSION 1 ============================ */
+{id:'m1',pole:1,n:1,ic:'📋',title:'Le cadencier enchanté',
+ comp:['Participer à la passation des commandes fournisseurs'],
+ story:`Bonjour ! Ici <b>Camille Roussel</b>, ta tutrice. La Saint-Nicolas approche et les albums partent comme des pains d'épices 🍪 ! Ce matin, j'ai relevé le stock du rayon Jeunesse. <b>Ta mission :</b> calculer ce qu'il faut commander au fournisseur, puis remplir le bon de commande. Je le vérifierai avant de l'envoyer.`,
+ res:`<div class="doc"><h4>📐 La règle de commande de la librairie</h4>
+  <ul><li>On commande <b>uniquement si</b> le stock actuel est <b>inférieur ou égal</b> au stock d'alerte.</li>
+  <li>Quantité à commander = <b>Stock maxi − Stock actuel</b></li>
+  <li>Sinon, quantité à commander = <b>0</b>.</li></ul></div>
+  <div class="doc"><h4>💶 Tarif du fournisseur « Diffusion Grand Est » (fournisseur fictif)</h4>
+  <p>Les prix d'achat sont donnés <b>hors taxes (HT)</b>, pour 1 exemplaire. La TVA sur les livres est de <b>5,5 %</b>.</p>
+  <p>Montant HT = Quantité × Prix d'achat HT · TVA = Total HT × 5,5 ÷ 100 · Total TTC = Total HT + TVA</p></div>`,
+ acts:[
+  {type:'table',k:'cad',q:'Complète la dernière colonne du cadencier (relevé du lundi 23/11/2026) :',
+   head:['Réf.','Titre','Stock maxi','Stock d\'alerte','Stock actuel','Quantité à commander'],
+   rows:[['JE-101','Le Dragon de la place Stanislas','40','12','8',{n:'q1',ans:32}],
+         ['JE-102','Saint-Nicolas et l\'âne gourmand','30','10','4',{n:'q2',ans:26}],
+         ['JE-103','Atlas des créatures fantastiques','20','6','15',{n:'q3',ans:0}],
+         ['MA-201','Kitsune Blade – Tome 3','50','15','15',{n:'q4',ans:35}],
+         ['JE-104','Bergamote et le secret du sucre d\'orge','24','8','3',{n:'q5',ans:21}]],
+   hint:'Compare d\'abord le stock actuel au stock d\'alerte. S\'il est plus grand, on ne commande pas : écris 0. Attention au Kitsune Blade : 15 est ÉGAL au stock d\'alerte !'},
+  {type:'qcm',k:'v1',q:'Qui valide la commande avant son envoi au fournisseur ?',
+   opts:['Moi, dès que j\'ai fini mes calculs','Le premier client de la journée','Ma tutrice : je lui transmets ma proposition'],ans:2},
+  {type:'qcm',k:'v2',q:'Pourquoi faut-il commander « Le Dragon de la place Stanislas » ?',
+   opts:['Parce que son stock actuel (8) est inférieur au stock d\'alerte (12) : il y a un risque de rupture','Parce que sa couverture est jolie','Parce que le stock maxi est de 40'],ans:0}
+ ],
+ annexT:'Annexe 1 – Bon de commande',
+ annex:[
+  {type:'html',html:`<div class="row" style="justify-content:space-between"><div><b>Librairie Le Hall du Livre</b><br>53-55 rue Saint-Dizier – 54000 Nancy</div><div><b>Bon de commande n° BC-2611-07</b><br>Date : 23/11/2026<br>Fournisseur : Diffusion Grand Est (fictif)</div></div>`},
+  {type:'table',k:'bdc',q:'Complète le bon de commande (les montants des lignes t\'aident, seuls les totaux sont notés) :',
+   head:['Réf.','Titre','Quantité','Prix d\'achat HT unitaire','Montant HT'],
+   rows:[['JE-101','Le Dragon de la place Stanislas',{f:'b1q'},'9,00 €',{f:'b1m'}],
+         ['JE-102','Saint-Nicolas et l\'âne gourmand',{f:'b2q'},'7,20 €',{f:'b2m'}],
+         ['JE-103','Atlas des créatures fantastiques',{f:'b3q'},'11,30 €',{f:'b3m'}],
+         ['MA-201','Kitsune Blade – Tome 3',{f:'b4q'},'4,40 €',{f:'b4m'}],
+         ['JE-104','Bergamote et le secret du sucre d\'orge',{f:'b5q'},'7,80 €',{f:'b5m'}],
+         [{span:4,t:'TOTAL HT (€)'},{n:'tht',ans:793,tol:0.01}],
+         [{span:4,t:'TVA 5,5 % (€)'},{n:'tva',ans:43.62,tol:0.011}],
+         [{span:4,t:'TOTAL TTC (€)'},{n:'ttc',ans:836.62,tol:0.011}]],
+   hint:'Exemple : 32 × 9,00 = 288,00 €. Additionne toutes les lignes pour le total HT. Arrondis la TVA au centime.'},
+  {type:'free',k:'by',label:'Établi par (prénom et nom) :',short:true}
+ ]},
+/* ============================ MISSION 2 ============================ */
+{id:'m2',pole:1,n:2,ic:'🚚',title:'La livraison mystère',
+ comp:['Réceptionner'],
+ story:`Bip bip ! 🚚 Le transporteur vient de déposer les cartons de la commande. Avant de ranger quoi que ce soit, on contrôle <b>TOUT</b>. Compare le bon de commande, le bon de livraison et ce que tu as compté dans les cartons. Un bon équipier ne laisse passer aucune erreur !`,
+ res:`<div class="doc"><h4>🔎 Contrôle de la livraison du 25/11/2026</h4>
+  <p>Le bon de livraison (BL n° 45872) indique 5 colis. Tu comptes 5 colis, en bon état extérieur.</p>
+  <div class="tbl-wrap"><table><tr><th>Titre</th><th>Commandé (BC-2611-07)</th><th>Livré selon le BL</th><th>Compté dans les cartons</th><th>Ce que tu remarques</th></tr>
+  <tr><td>Le Dragon de la place Stanislas</td><td>32</td><td>32</td><td>32</td><td>RAS</td></tr>
+  <tr><td>Saint-Nicolas et l'âne gourmand</td><td>26</td><td>26</td><td>24</td><td>—</td></tr>
+  <tr><td>Kitsune Blade – Tome 3</td><td>35</td><td>35</td><td>35</td><td>3 exemplaires ont la couverture déchirée</td></tr>
+  <tr><td>Bergamote et le secret du sucre d'orge</td><td>21</td><td>21</td><td>21</td><td>RAS</td></tr>
+  <tr><td>Robots en folie</td><td>0 (non commandé)</td><td>10</td><td>10</td><td>Trouvés dans le carton n° 4</td></tr></table></div></div>
+  <div class="doc"><h4>📖 Vocabulaire</h4><p><b>BC</b> = bon de commande (ce qu'on a demandé). <b>BL</b> = bon de livraison (ce que le fournisseur dit avoir envoyé). <b>Réserves</b> = remarques écrites sur le document du transporteur quand un colis est abîmé ou manquant, avant de signer.</p></div>`,
+ acts:[
+  {type:'sel',k:'an',q:'Pour chaque titre, indique le résultat du contrôle :',
+   choices:['Conforme','Quantité manquante','Produits abîmés','Produits non commandés'],
+   rows:[{l:'Le Dragon de la place Stanislas',ans:0},{l:'Saint-Nicolas et l\'âne gourmand',ans:1},{l:'Kitsune Blade – Tome 3',ans:2},{l:'Bergamote et le secret du sucre d\'orge',ans:0},{l:'Robots en folie',ans:3}],
+   hint:'Compare colonne par colonne : commandé ↔ livré ↔ compté. Puis lis la colonne « Ce que tu remarques ».'},
+  {type:'order',k:'ord',pts:2,q:'Remets dans l\'ordre les étapes de la réception :',
+   items:['Vérifier le nombre de colis indiqué sur le document du transporteur','Contrôler l\'état extérieur des colis','Noter les réserves éventuelles sur le document du transporteur, puis signer','Ouvrir les colis et compter les produits','Comparer le bon de livraison avec le bon de commande et les produits reçus','Signaler les anomalies à la tutrice et ranger les produits'],
+   start:[3,0,5,2,4,1],
+   hint:'On contrôle d\'abord les colis devant le transporteur, AVANT qu\'il reparte. Ensuite seulement on ouvre.'},
+  {type:'qcm',k:'r1',q:'Que fais-tu des 10 « Robots en folie » qui n\'ont pas été commandés ?',
+   opts:['Je les mets en rayon tout de suite, ça fera des ventes','Je les jette au tri sélectif','Je les mets de côté et je préviens ma tutrice, qui décidera (retour ou conservation)'],ans:2}
+ ],
+ annexT:'Annexe 2 – Fiche de signalement d\'anomalies',
+ annex:[
+  {type:'table',k:'fa',q:'Livraison du 25/11/2026 – BL n° 45872',
+   head:['Titre','Type d\'anomalie','Nombre d\'exemplaires concernés','Action proposée'],
+   rows:[['Saint-Nicolas et l\'âne gourmand','Quantité manquante',{n:'nm',ans:2},{f:'ac1'}],
+         ['Kitsune Blade – Tome 3','Produits abîmés',{n:'na',ans:3},{f:'ac2'}],
+         ['Robots en folie','Produits non commandés','10',{f:'ac3'}]]},
+  {type:'free',k:'msg',label:'Message pour ma tutrice (ce que j\'ai constaté et ce que je propose) :'}
+ ]},
+/* ============================ MISSION 3 ============================ */
+{id:'m3',pole:1,n:3,ic:'🗝️',title:'La chasse aux livres de la réserve',
+ comp:['Stocker','Préparer les commandes destinées aux clients'],
+ story:`Une commande client « à retirer en magasin » est arrivée hier soir 🌙 ! Ta mission : retrouver les livres dans la réserve, respecter les règles de stockage et préparer le colis avec son étiquette. Attention, la réserve est un vrai labyrinthe…`,
+ res:`<div class="doc"><h4>🧾 Commande n° WEB-26-1123 (client fictif)</h4>
+  <p>Client : <b>M. Hugo PETITJEAN</b> · Commande passée le 23/11/2026 · Mode : <b>retrait en magasin</b><br>
+  Articles : Les Mystères de la Pépinière ×1 · Kitsune Blade – Tome 3 ×1 · Atlas des créatures fantastiques ×1<br>
+  Colis préparé le <b>24/11/2026</b>. Règle : un colis est conservé <b>10 jours</b> à partir de la date de préparation.</p></div>
+  <div class="doc"><h4>🗂️ Fichier des emplacements de la réserve (extrait)</h4><div class="tbl-wrap"><table>
+  <tr><th>Titre</th><th>Univers</th><th>Emplacement (Allée-Niveau)</th></tr>
+  <tr><td>Le Dragon de la place Stanislas</td><td>Albums</td><td>A-3</td></tr>
+  <tr><td>Saint-Nicolas et l'âne gourmand</td><td>Albums</td><td>A-2</td></tr>
+  <tr><td>Atlas des créatures fantastiques</td><td>Documentaires (lourd)</td><td>A-1</td></tr>
+  <tr><td>L'Académie des sorciers – Coffret T1 à T3</td><td>Romans 10 ans et +</td><td>B-1</td></tr>
+  <tr><td>Les Mystères de la Pépinière</td><td>Romans 9-12 ans</td><td>B-2</td></tr>
+  <tr><td>Ninja Pâtissier – Tome 1</td><td>Manga</td><td>C-2</td></tr>
+  <tr><td>Kitsune Blade – Tome 3</td><td>Manga</td><td>C-3</td></tr>
+  <tr><td>Robots en folie</td><td>BD</td><td>C-4</td></tr></table></div>
+  <p class="muted">Le niveau 1 est le plus bas (près du sol), le niveau 4 le plus haut.</p></div>
+  <div class="doc"><h4>🦺 Stocker en sécurité</h4><ul>
+  <li>Les produits lourds se placent en bas, les plus légers en hauteur.</li>
+  <li>Les allées et les issues de secours restent toujours dégagées.</li>
+  <li>Pour porter une charge : dos droit, jambes fléchies, charge près du corps.</li>
+  <li>Rotation : les exemplaires les plus anciens passent devant, les nouveaux derrière.</li>
+  <li>Les cartons vides sont aplatis et triés.</li></ul></div>`,
+ acts:[
+  {type:'grid',k:'gr',q:'Clique sur un livre de la commande, puis sur sa case dans la réserve :',
+   items:[{l:'Les Mystères de la Pépinière',ans:'B2'},{l:'Kitsune Blade – Tome 3',ans:'C3'},{l:'Atlas des créatures fantastiques',ans:'A1'}],
+   hint:'B-2 veut dire : allée B, niveau 2. Les niveaux se comptent à partir du sol.'},
+  {type:'sel',k:'tf',q:'Vrai ou faux ?',choices:['Vrai','Faux'],
+   rows:[{l:'Les cartons les plus lourds se rangent tout en haut pour gagner de la place.',ans:1},
+         {l:'L\'accès aux issues de secours doit toujours rester dégagé.',ans:0},
+         {l:'Pour soulever un carton, je garde le dos droit et je plie les jambes.',ans:0},
+         {l:'Les exemplaires qui viennent d\'arriver se placent devant les anciens.',ans:1}]}
+ ],
+ annexT:'Annexe 3 – Étiquette du colis client',
+ annex:[
+  {type:'label',k:'lab',fields:[
+    {k:'lc',l:'N° de commande',re:[/^web-?26-?1123$/],sample:'WEB-26-1123'},
+    {k:'ln',l:'Nom du client',re:[/petitjean/],sample:'PETITJEAN'},
+    {k:'ld',l:'À retirer avant le',re:[/^0?4[\/.\-]12([\/.\-](20)?26)?$/,/^0?4decembre(2026)?$/],sample:'04/12/2026',hint:'24/11 + 10 jours. Attention : novembre a 30 jours !'},
+    {k:'lp',l:'Préparé par',free:true}]}
+ ]},
+/* ============================ MISSION 4 ============================ */
+{id:'m4',pole:2,n:4,ic:'📚',title:'Le meuble de Saint-Nicolas',
+ comp:['Approvisionner, mettre en rayon et ranger selon la nature des produits'],
+ story:`Les cartons sont rangés : place à la magie du rayon ✨ ! Le meuble « Spécial Saint-Nicolas » doit être prêt pour samedi. Un rayon bien rempli et bien organisé, c'est un rayon qui donne envie… et qui vend !`,
+ res:`<div class="doc"><h4>🪜 Les 4 niveaux de présentation</h4><div class="tbl-wrap"><table>
+  <tr><th>Niveau</th><th>Ce qu'on y place</th></tr>
+  <tr><td>Niveau haut (au-dessus des yeux)</td><td>Produits peu demandés, réserve de rayon : peu visibles</td></tr>
+  <tr><td>Niveau des yeux</td><td>Le plus visible : nouveautés, coups de cœur, produits à mettre en avant</td></tr>
+  <tr><td>Niveau des mains</td><td>Facile à attraper : produits courants très demandés</td></tr>
+  <tr><td>Niveau bas (près du sol)</td><td>Produits lourds ou encombrants</td></tr></table></div></div>
+  <div class="doc"><h4>✅ Bien approvisionner</h4><ul>
+  <li>On fait le <b>réassort avant la rupture</b> : dès que le rayon se vide, on le complète.</li>
+  <li>Une nouveauté se présente <b>de face</b> (couverture visible) ; les autres livres peuvent être <b>de dos</b> (on voit la tranche).</li>
+  <li>Un produit abîmé est <b>retiré du rayon</b> et signalé.</li>
+  <li><b>Linéaire développé</b> = longueur du meuble au sol × nombre de tablettes.</li></ul></div>`,
+ acts:[
+  {type:'sel',k:'niv',q:'Sur quel niveau places-tu chaque produit ?',
+   choices:['Niveau haut (au-dessus des yeux)','Niveau des yeux','Niveau des mains','Niveau bas (près du sol)'],
+   rows:[{l:'« Le Dragon de la place Stanislas » : la nouveauté coup de cœur à mettre en avant',ans:1},
+         {l:'« L\'Académie des sorciers – Coffret » : lourd et encombrant',ans:3},
+         {l:'« Kitsune Blade – Tome 3 » : petit format très demandé',ans:2},
+         {l:'Le surplus de « Robots en folie », peu demandé',ans:0}]},
+  {type:'qcm',k:'a1',q:'Un livre a la couverture abîmée en rayon. Que fais-tu ?',
+   opts:['Je le cache derrière les autres','Je le retire du rayon et je le signale','Je le laisse, un client le prendra peut-être'],ans:1},
+  {type:'qcm',k:'a2',q:'Pour mettre en avant une nouveauté, je la présente :',
+   opts:['De dos : on ne voit que la tranche','Dans la réserve','De face : la couverture est bien visible'],ans:2},
+  {type:'qcm',k:'a3',q:'Quand faut-il faire le réassort ?',
+   opts:['Avant la rupture, dès que le rayon se vide','Quand le rayon est complètement vide','Une fois par mois'],ans:0}
+ ],
+ annexT:'Annexe 4 – Fiche de calcul du meuble',
+ annex:[
+  {type:'html',html:`<p>Le meuble « Spécial Saint-Nicolas » mesure <b>1,20 m</b> de long et possède <b>3 tablettes</b>. Un album présenté de face occupe <b>25 cm</b> de large.</p>`},
+  {type:'num',k:'c1',q:'Combien d\'albums de face au maximum sur UNE tablette ?',ans:4,unit:'albums',hint:'1,20 m = 120 cm. 120 ÷ 25 = 4,8… mais on ne peut pas couper un livre !'},
+  {type:'num',k:'c2',q:'Combien d\'albums de face au maximum sur tout le meuble ?',ans:12,unit:'albums'},
+  {type:'num',k:'c3',q:'Quel est le linéaire développé du meuble ?',ans:3.6,tol:0.001,unit:'m'}
+ ]},
+/* ============================ MISSION 5 ============================ */
+{id:'m5',pole:2,n:5,ic:'🏷️',title:'Les étiquettes qui brillent',
+ comp:['Mettre en valeur les produits et l\'espace commercial','Installer et mettre à jour la signalétique'],
+ story:`Samedi, la librairie va être pleine de familles 🎄. Les prix doivent être justes, les panneaux bien placés… et nos coups de cœur doivent briller ! Mais attention : en France, le prix d'un livre obéit à une loi bien particulière…`,
+ res:`<div class="doc"><h4>⚖️ Le prix du livre en France</h4><ul>
+  <li>La <b>loi Lang</b> (loi n° 81-766 du 10 août 1981) instaure le <b>prix unique du livre</b> : c'est l'<b>éditeur</b> qui fixe le prix de vente au public.<sup>[8][9]</sup></li>
+  <li>Le libraire peut accorder au client un <b>rabais de 5 % maximum</b> sur ce prix.<sup>[8][9]</sup></li>
+  <li>La TVA sur les livres est au <b>taux réduit de 5,5 %</b> (article 278-0 bis du Code général des impôts).<sup>[8]</sup></li></ul>
+  <p><b>Formules :</b> Prix HT = Prix TTC ÷ 1,055 · TVA = Prix TTC − Prix HT · Prix minimum autorisé = Prix TTC × 0,95</p></div>
+  <div class="doc"><h4>🪧 La signalétique</h4><p>Elle guide le client : panneaux d'univers (Albums, Romans, Manga…), étiquettes prix, et <b>PLV</b> (publicité sur le lieu de vente) comme l'étiquette « Coup de cœur du libraire ».</p></div>`,
+ acts:[
+  {type:'num',k:'p1',q:'L\'« Atlas des créatures fantastiques » coûte 19,90 € TTC. Quel est son prix HT ?',ans:18.86,tol:0.006,unit:'€',hint:'19,90 ÷ 1,055 = 18,8625… arrondi au centime.'},
+  {type:'num',k:'p2',q:'Quel est le montant de la TVA ?',ans:1.04,tol:0.006,unit:'€'},
+  {type:'num',k:'p3',q:'Quel est le prix le plus bas auquel la librairie peut le vendre (rabais maximum) ?',ans:18.905,tol:0.006,unit:'€',show:'18,90 ou 18,91'},
+  {type:'sel',k:'lg',q:'Vrai ou faux ?',choices:['Vrai','Faux'],
+   rows:[{l:'La librairie peut vendre le coffret « L\'Académie des sorciers », paru le mois dernier à 29,90 €, au prix de 19,90 € pour une promotion.',ans:1},
+         {l:'Le prix d\'un livre neuf est fixé par l\'éditeur.',ans:0},
+         {l:'Le client doit pouvoir connaître le prix de chaque livre exposé.',ans:0}]},
+  {type:'sel',k:'sg',q:'Sous quel panneau d\'univers ranges-tu ces livres ?',
+   choices:['Albums 3-6 ans','Romans 9-12 ans','Documentaires jeunesse','Manga','BD'],
+   rows:[{l:'Kitsune Blade – Tome 3',ans:3},{l:'Atlas des créatures fantastiques',ans:2},{l:'Saint-Nicolas et l\'âne gourmand',ans:0}]},
+  {type:'qcm',k:'pl',q:'Une étiquette « Coup de cœur du libraire » sert à :',
+   opts:['Cacher le prix','Attirer l\'attention et donner envie en partageant un avis','Remplacer le code-barres'],ans:1}
+ ],
+ annexT:'Annexe 5 – Ma PLV « Coup de cœur » et ma vitrine',
+ annex:[
+  {type:'card',k:'plv'},
+  {type:'free',k:'vit',label:'Ma vitrine de Saint-Nicolas : thème, 3 livres choisis, décor et couleurs (explique tes choix) :'}
+ ]},
+/* ============================ MISSION 6 ============================ */
+{id:'m6',pole:2,n:6,ic:'🔍',title:'L\'énigme des mangas disparus',
+ comp:['Participer aux opérations de conditionnement des produits','Lutter contre la démarque et participer aux opérations d\'inventaire'],
+ story:`Oups 😬 ! Le logiciel indique 47 « Kitsune Blade – Tome 3 » en stock… mais au rayon, on n'en trouve pas autant ! Je te confie le comptage du rayon Manga. Et comme les clients demandent beaucoup de paquets-cadeaux, tu vas aussi devenir pro de l'emballage 🎁.`,
+ res:`<div class="doc"><h4>🕵️ La démarque</h4>
+  <p>La démarque est l'écart entre le <b>stock théorique</b> (ce que dit le logiciel) et le <b>stock réel</b> (ce que l'on compte).</p>
+  <ul><li><b>Démarque connue</b> : on connaît la cause et on l'a enregistrée (produit abîmé, casse…).</li>
+  <li><b>Démarque inconnue</b> : on ne connaît pas la cause (vol non détecté, erreur jamais repérée…).</li>
+  <li>Pour lutter : vigilance en rayon, antivols, contrôle sérieux à la réception.</li></ul></div>
+  <div class="doc"><h4>🧮 L'inventaire</h4><p>On compte physiquement chaque produit. <b>Écart = stock réel − stock théorique</b> (négatif s'il manque des produits). <b>Valeur de l'écart</b> = nombre d'exemplaires manquants × prix d'achat HT.</p></div>
+  <div class="doc"><h4>🎁 Le paquet-cadeau : les bons réflexes</h4><p>On propose toujours le service au client. On choisit un papier adapté à l'occasion et à la taille du livre, on le coupe à la bonne dimension, on emballe proprement, on décore, et on remet le paquet avec un ticket cadeau.</p></div>`,
+ acts:[
+  {type:'sel',k:'dm',q:'Démarque connue ou inconnue ?',choices:['Démarque connue','Démarque inconnue'],
+   rows:[{l:'3 « Kitsune Blade » abîmés, retirés du rayon et enregistrés',ans:0},
+         {l:'Un livre volé sans que personne ne s\'en aperçoive',ans:1},
+         {l:'Un album tombé dans une flaque, enregistré en casse',ans:0},
+         {l:'Une erreur de comptage à la réception, jamais repérée',ans:1}]},
+  {type:'order',k:'pq',pts:2,q:'Remets dans l\'ordre les étapes du paquet-cadeau :',
+   items:['Demander au client s\'il souhaite un paquet-cadeau','Choisir un papier adapté (occasion, taille du livre)','Couper le papier à la bonne dimension','Emballer le livre et fixer avec du ruban adhésif','Ajouter le ruban ou l\'étiquette décorative','Remettre le paquet au client avec le ticket cadeau'],
+   start:[4,2,0,5,3,1]}
+ ],
+ annexT:'Annexe 6 – Fiche de comptage d\'inventaire (rayon Manga)',
+ annex:[
+  {type:'table',k:'inv',q:'Inventaire du 30/11/2026',
+   head:['Réf.','Titre','Stock théorique','Stock réel compté','Écart (réel − théorique)','Prix d\'achat HT','Valeur de l\'écart'],
+   rows:[['MA-201','Kitsune Blade – Tome 3','47','44',{n:'e1',ans:-3},'4,40 €',{f:'v1'}],
+         ['MA-200','Kitsune Blade – Tome 2','18','18',{n:'e2',ans:0},'4,40 €',{f:'v2'}],
+         ['MA-310','Ninja Pâtissier – Tome 1','25','21',{n:'e3',ans:-4},'4,10 €',{f:'v3'}],
+         [{span:6,t:'Valeur totale de la démarque (€)'},{n:'vt',ans:29.6,tol:0.01,alt:[-29.6]}]],
+   hint:'Un écart négatif veut dire qu\'il manque des livres : écris le signe − (exemple : −2). Valeur = nombre manquant × prix d\'achat HT.'}
+ ]},
+/* ============================ MISSION 7 ============================ */
+{id:'m7',pole:3,n:7,ic:'🌟',title:'Le sortilège de l\'accueil',
+ comp:['Préparer son environnement de travail','Prendre contact avec le client'],
+ story:`La librairie ouvre dans 5 minutes ⏰ et aujourd'hui, tu es au comptoir d'accueil et de caisse. Un bon accueil, c'est la première magie du commerce : en quelques secondes, le client décide s'il se sent bien chez nous.`,
+ res:`<div class="doc"><h4>🧰 Mon poste de travail</h4><ul>
+  <li>Tenue propre et adaptée, badge visible.</li>
+  <li>Fond de caisse compté, terminal de paiement (TPE) et imprimante à tickets qui fonctionnent.</li>
+  <li>Sacs, papier cadeau, ruban adhésif à portée de main. Poste rangé.</li>
+  <li>Téléphone personnel rangé : pendant le travail, je suis disponible pour les clients.</li></ul></div>
+  <div class="doc"><h4>4️⃣ La règle des 4 × 20</h4><p>Les <b>20 premières secondes</b>, les <b>20 premiers mots</b>, les <b>20 premiers gestes</b> et les <b>20 cm du visage</b> (sourire, regard) construisent la première impression du client.</p></div>
+  <div class="doc"><h4>😊 S.B.A.M.</h4><p><b>S</b>ourire · <b>B</b>onjour · <b>A</b>u revoir · <b>M</b>erci. On vouvoie le client, on se tient face à lui, à environ un mètre.</p></div>`,
+ acts:[
+  {type:'multi',k:'chk',pts:3,q:'Avant l\'ouverture, que dois-tu vérifier ? (plusieurs réponses possibles)',
+   opts:['Le fond de caisse est compté','Mon téléphone personnel est posé à côté de la caisse pour répondre vite','Le TPE et l\'imprimante à tickets fonctionnent','Mes écouteurs sont prêts pour écouter de la musique','Les sacs et le papier cadeau sont prêts'],
+   ans:[true,false,true,false,true]},
+  {type:'qcm',k:'d1',chat:true,scene:'🧑 Un client entre et regarde partout autour de lui. Tu dis :',
+   opts:['« Vous voulez quoi ? »','« Bonjour ! Bienvenue au Hall du Livre. Je vous laisse découvrir, n\'hésitez pas si vous avez besoin de moi. »','(Rien : tu continues ton rangement sans lever la tête.)'],ans:1},
+  {type:'qcm',k:'d2',chat:true,scene:'📞 Tu es au téléphone avec un fournisseur. Une cliente arrive au comptoir. Tu :',
+   opts:['Lui fais un signe de tête et un sourire pour montrer que tu l\'as vue, puis tu abrèges poliment l\'appel','Lui tournes le dos pour mieux entendre','Raccroches au nez du fournisseur'],ans:0},
+  {type:'qcm',k:'d3',chat:true,scene:'🧑‍🦱 « Vous avez le dernier Kitsune Blade ? »',
+   opts:['« Au fond à gauche. »','« Regardez sur Internet. »','« Oui ! Il est au rayon Manga, je vous y accompagne. »'],ans:2},
+  {type:'qcm',k:'d4',chat:true,scene:'🧍 Pendant que tu parles au client, ta posture est :',
+   opts:['Bras croisés, derrière l\'écran','Face à lui, souriant(e), à environ un mètre','Très près de lui, à 20 cm de son visage'],ans:1},
+  {type:'sel',k:'tf',q:'Vrai ou faux ?',choices:['Vrai','Faux'],
+   rows:[{l:'Les premières secondes du contact sont décisives pour l\'image que le client garde de la librairie.',ans:0},
+         {l:'Avec un client, on utilise le vouvoiement.',ans:0},
+         {l:'Si je suis fatigué(e), c\'est normal que le client le voie sur mon visage.',ans:1}]}
+ ],
+ annexT:'Annexe 7 – Mon accueil personnalisé',
+ annex:[
+  {type:'free',k:'ph',label:'Ma phrase d\'accueil (à dire en vrai !) :',short:true},
+  {type:'free',k:'ge',label:'3 gestes ou attitudes que j\'adopte pour un accueil réussi :'}
+ ]},
+/* ============================ MISSION 8 ============================ */
+{id:'m8',pole:3,n:8,ic:'🐉',title:'Le cadeau parfait pour Tom',
+ comp:['Accompagner le parcours client dans un contexte omnicanal','Conseiller le client'],
+ story:`Une cliente s'approche avec un grand sourire : « Bonjour ! Je cherche un cadeau de Saint-Nicolas pour mon neveu… » C'est ton moment : écoute, questionne, conseille ! 🎯`,
+ res:`<div class="doc"><h4>👩 La cliente : Mme Nadia Lambert (cliente fictive)</h4>
+  <p class="scene">« C'est pour mon neveu Tom, il a 9 ans. Il adore les dragons et les créatures magiques. Il lit déjà tout seul. Je ne veux pas dépasser 20 €. »</p></div>
+  <div class="doc"><h4>📗 Extrait du catalogue (titres fictifs)</h4><div class="tbl-wrap"><table>
+  <tr><th>Titre</th><th>Genre</th><th>Âge conseillé</th><th>Thème</th><th>Prix TTC</th><th>Stock</th></tr>
+  <tr><td>Le Dragon de la place Stanislas</td><td>Album</td><td>4-7 ans</td><td>Dragons, Nancy</td><td>14,90 €</td><td>32</td></tr>
+  <tr><td>Atlas des créatures fantastiques</td><td>Documentaire illustré</td><td>8-12 ans</td><td>Dragons, licornes, créatures magiques</td><td>19,90 €</td><td>15</td></tr>
+  <tr><td>L'Académie des sorciers – Coffret T1 à T3</td><td>Roman</td><td>10 ans et +</td><td>Magie, école</td><td>29,90 €</td><td>6</td></tr>
+  <tr><td>Kitsune Blade – Tome 3</td><td>Manga</td><td>12 ans et +</td><td>Combats, Japon</td><td>7,20 €</td><td>44</td></tr>
+  <tr><td>Les Mystères de la Pépinière</td><td>Roman</td><td>9-12 ans</td><td>Enquête dans un parc</td><td>12,50 €</td><td>9</td></tr></table></div></div>
+  <div class="doc"><h4>❓ Questionner et reformuler</h4><ul>
+  <li><b>Question ouverte</b> : le client répond librement (« Qu'est-ce que… ? », « Comment… ? »). Elle le fait parler.</li>
+  <li><b>Question fermée</b> : le client répond par oui ou non.</li>
+  <li><b>Reformulation</b> : je résume le besoin (« Si je comprends bien… ») pour vérifier que j'ai compris.</li>
+  <li><b>Argumenter</b> : je relie une caractéristique du produit à ce que veut le client.</li></ul></div>
+  <div class="doc"><h4>🌐 Le parcours omnicanal</h4><ul>
+  <li><b>Click & collect</b> : le client commande en ligne et retire en magasin.</li>
+  <li><b>Commande client en magasin</b> : le produit n'est pas en stock, le vendeur le commande, le client revient le chercher.</li>
+  <li><b>Web-to-store</b> : le client découvre le produit sur Internet (site, réseaux sociaux) puis vient l'acheter en boutique.</li>
+  <li><b>Livraison à domicile</b> : le produit est envoyé chez le client.</li></ul></div>`,
+ acts:[
+  {type:'sel',k:'qt',q:'Quel est le type de chaque phrase du vendeur ?',choices:['Question ouverte','Question fermée','Reformulation'],
+   rows:[{l:'« Qu\'est-ce qu\'il aime lire en ce moment ? »',ans:0},{l:'« Il lit déjà tout seul ? »',ans:1},
+         {l:'« Si je comprends bien, vous cherchez un livre sur les dragons pour un garçon de 9 ans, à 20 € maximum. »',ans:2}]},
+  {type:'qcm',k:'pr',pts:2,q:'Quel livre proposes-tu en priorité à Mme Lambert ?',
+   opts:['Le Dragon de la place Stanislas','Atlas des créatures fantastiques','L\'Académie des sorciers – Coffret','Kitsune Blade – Tome 3','Les Mystères de la Pépinière'],ans:1,
+   hint:'Vérifie les 3 critères : l\'âge (9 ans), le thème (dragons, créatures magiques) et le budget (20 € maximum).'},
+  {type:'qcm',k:'ar',q:'Quel argument est le plus adapté ?',
+   opts:['« C\'est le plus cher, donc le meilleur. »','« Tout le monde l\'achète. »','« Il présente des dragons et plein de créatures magiques, avec des illustrations : idéal pour un lecteur de 9 ans qui adore ce thème. »'],ans:2},
+  {type:'qcm',k:'sv',q:'Pour finaliser, quel service proposes-tu ?',
+   opts:['Un paquet-cadeau pour la Saint-Nicolas','Un deuxième Atlas identique','Rien, la vente est finie'],ans:0},
+  {type:'sel',k:'om',q:'Associe chaque situation au bon parcours :',choices:['Click & collect','Commande client en magasin','Web-to-store','Livraison à domicile'],
+   rows:[{l:'Le client commande sur Internet et vient chercher son livre en magasin.',ans:0},
+         {l:'Le livre n\'est pas en stock : tu le commandes pour le client, qui reviendra le chercher.',ans:1},
+         {l:'La cliente a découvert le livre sur les réseaux sociaux de la librairie et vient l\'acheter en boutique.',ans:2}]}
+ ],
+ annexT:'Annexe 8 – Fiche conseil client',
+ annex:[
+  {type:'free',k:'be',label:'Le besoin de la cliente (pour qui ? âge ? goûts ? budget ?) :'},
+  {type:'free',k:'pc',label:'Le livre que je conseille :',short:true},
+  {type:'free',k:'ag',label:'Mes 2 arguments (caractéristique du livre → avantage pour Tom) :'},
+  {type:'free',k:'sp',label:'Le service que je propose :',short:true}
+ ]},
+/* ============================ MISSION 9 ============================ */
+{id:'m9',pole:3,n:9,ic:'💰',title:'La caisse et le client fâché',
+ comp:['Finaliser la prise en charge du client','Recevoir les réclamations courantes'],
+ story:`Mme Lambert est ravie 😍 : elle prend l'Atlas pour Tom… et aussi « Saint-Nicolas et l'âne gourmand » pour sa fille ! Direction la caisse. Mais attention : derrière elle, un client a l'air très fâché…`,
+ res:`<div class="doc"><h4>🧾 Le passage en caisse de Mme Lambert</h4><ul>
+  <li>Atlas des créatures fantastiques : 19,90 € · Saint-Nicolas et l'âne gourmand : 11,90 € · Paquet-cadeau : offert.</li>
+  <li>Elle a la carte de fidélité de la librairie (avantage fictif) : <b>5 % de remise</b> sur les livres (la loi autorise 5 % au maximum).</li>
+  <li>Elle paie avec <b>un billet de 50 €</b>.</li></ul></div>
+  <div class="doc"><h4>📦 Remettre un colis « retrait en magasin »</h4><p>Je demande le nom et le numéro de commande, je vérifie la <b>pièce d'identité</b>, puis je remets le colis et je fais valider la remise.</p></div>
+  <div class="doc"><h4>😠 Le client fâché : M. Karim Benali (client fictif)</h4><p class="scene">« J'ai acheté ce roman samedi : il manque 16 pages au milieu, elles sont blanches ! C'est inadmissible ! »</p>
+  <p><b>Les bons réflexes (dans le désordre !)</b> : remercier et prendre congé · écouter calmement · vérifier que la solution convient · reformuler le problème · proposer une solution ou transmettre à sa responsable.</p></div>`,
+ acts:[
+  {type:'num',k:'t1',q:'Total des 2 livres avant remise :',ans:31.8,tol:0.006,unit:'€'},
+  {type:'num',k:'t2',q:'Montant net à payer après la remise de 5 % :',ans:30.21,tol:0.006,unit:'€',hint:'Remise = 31,80 × 5 ÷ 100. Net = total − remise.'},
+  {type:'num',k:'t3',q:'Monnaie à rendre sur le billet de 50 € :',ans:19.79,tol:0.006,unit:'€'},
+  {type:'cash',k:'cash',pts:2,target:1979,q:'Compose la monnaie à rendre dans le plateau (sans calculatrice !). Clique sur une pièce du plateau pour la retirer.',sample:[1000,500,200,200,50,20,5,2,2]},
+  {type:'qcm',k:'cc',q:'M. Petitjean vient chercher sa commande WEB-26-1123. Avant de lui remettre son colis, tu vérifies :',
+   opts:['Sa carte de fidélité','Son identité (pièce d\'identité) et le numéro de commande','Rien, il a l\'air honnête'],ans:1},
+  {type:'order',k:'rec',pts:2,q:'Remets dans l\'ordre le traitement de la réclamation de M. Benali :',
+   items:['Écouter le client calmement, sans l\'interrompre','Reformuler son problème pour montrer que j\'ai compris','Proposer une solution (échange du livre) ou transmettre à ma responsable si je ne peux pas décider','Vérifier que la solution convient au client','Remercier le client et prendre congé chaleureusement'],
+   start:[2,4,0,3,1]},
+  {type:'qcm',k:'dd',q:'M. Benali exige en plus 50 € de dédommagement. Que fais-tu ?',
+   opts:['J\'accepte pour qu\'il se calme','Je refuse et je lui demande de partir','Je ne peux pas décider seul(e) : je transmets à ma responsable'],ans:2},
+  {type:'qcm',k:'by',q:'Pour finir la vente avec Mme Lambert et lui donner envie de revenir :',
+   opts:['« Merci beaucoup, bonne Saint-Nicolas à Tom ! À bientôt au Hall du Livre ! »','« Suivant ! »','« Voilà. »'],ans:0}
+ ],
+ annexT:'Annexe 9 – Fiche de réclamation client',
+ annex:[
+  {type:'free',k:'rn',label:'Nom du client et date :',short:true},
+  {type:'free',k:'rm',label:'Motif de la réclamation :'},
+  {type:'free',k:'rs',label:'Solution proposée / personne à qui j\'ai transmis :'}
+ ]}
+];
+
+/* ---------------------------------------------------------------------
+   OUTILS
+--------------------------------------------------------------------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const norm = s => String(s??'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,'');
+function pnum(v){ if(v==null) return NaN; let s=String(v).trim().replace(/[−–]/g,'-').replace(/\s/g,'').replace('€','').replace(',','.'); if(s==='') return NaN; return Number(s)}
+const fmt = n => (Math.round(n*100)/100).toFixed(2).replace('.',',');
+const fmtN = n => Number.isInteger(n)? String(n).replace('-','−') : String(n).replace('.',',').replace('-','−');
+function ms(id){ if(!S.m[id]) S.m[id]={a:{},done:false,pts:null,marks:{}}; return S.m[id]}
+const mById = id => M.find(x=>x.id===id);
+function allW(m){return [...m.acts,...m.annex]}
+function stars(p){return p==null?0:p>=80?3:p>=50?2:p>0?1:0}
+function lvlOf(p){return p>=80?4:p>=60?3:p>=40?2:1}
+
+/* ---------- son ---------- */
+let AC=null;
+function chime(kind){ if(!S.sound) return; try{ AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+  const notes = kind==='win'?[523,659,784,1047,1319]:kind==='tap'?[880]:[660,880];
+  notes.forEach((f,i)=>{const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(0,AC.currentTime+i*.09);g.gain.linearRampToValueAtTime(.12,AC.currentTime+i*.09+.02);g.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+i*.09+.5);o.connect(g).connect(AC.destination);o.start(AC.currentTime+i*.09);o.stop(AC.currentTime+i*.09+.55)});
+ }catch(e){} }
+function burst(x,y,n=36){ const ch=['✦','★','✧','✨','⭐'];
+  for(let i=0;i<n;i++){const s=document.createElement('span');s.className='burst';s.textContent=ch[i%ch.length];
+   const a=Math.random()*Math.PI*2,d=80+Math.random()*220;s.style.left=x+'px';s.style.top=y+'px';
+   s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d+'px');s.style.setProperty('--rot',(Math.random()*720-360)+'deg');
+   s.style.fontSize=(14+Math.random()*18)+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),1600)} }
+function toast(t){const d=document.createElement('div');d.className='toast';d.innerHTML=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+function modal(html,btns){ const d=document.createElement('div');d.className='modal';
+  d.innerHTML=`<div class="box">${html}<div class="row" style="justify-content:center;margin-top:18px">${btns.map((b,i)=>`<button class="btn ${b.sec?'sec':''}" data-i="${i}">${b.t}</button>`).join('')}</div></div>`;
+  d.addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const f=btns[+b.dataset.i].f;d.remove();f&&f()});
+  document.body.appendChild(d)}
+
+/* ---------------------------------------------------------------------
+   CIEL ÉTOILÉ
+--------------------------------------------------------------------- */
+(function sky(){const c=$('#sky'),x=c.getContext('2d');let W,H,st=[],sh=null;
+ let sn=[];function rs(){W=c.width=innerWidth;H=c.height=innerHeight;sn=Array.from({length:70},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.2+.8,vy:.3+Math.random()*.8,ph:Math.random()*6.28}));st=Array.from({length:Math.min(220,Math.floor(W*H/6000))},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.5+.3,p:Math.random()*6.28,s:.5+Math.random()*1.5}))}
+ rs();addEventListener('resize',rs);
+ const red=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function f(t){x.clearRect(0,0,W,H);for(const s of st){const a=.35+.65*Math.abs(Math.sin(s.p+t/1000*s.s));x.globalAlpha=a;x.fillStyle=s.r>1.4?'#ffe08f':'#fff';x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill()}
+  if(!sh&&Math.random()<.004)sh={x:Math.random()*W*.7,y:Math.random()*H*.4,l:0};
+  if(sh){x.globalAlpha=1-sh.l/60;x.strokeStyle='#ffe08f';x.lineWidth=2;x.beginPath();x.moveTo(sh.x,sh.y);x.lineTo(sh.x-40,sh.y-18);x.stroke();sh.x+=9;sh.y+=4;sh.l++;if(sh.l>60)sh=null}
+  for(const f2 of sn){f2.y+=f2.vy;f2.x+=Math.sin(t/1400+f2.ph)*.35;if(f2.y>H+5){f2.y=-5;f2.x=Math.random()*W}x.globalAlpha=.55;x.fillStyle='#fff';x.beginPath();x.arc(f2.x,f2.y,f2.r,0,6.28);x.fill()}
+  x.globalAlpha=1;if(!red)requestAnimationFrame(f)}
+ requestAnimationFrame(f)})();
+
+/* ---------------------------------------------------------------------
+   RENDU DES WIDGETS
+--------------------------------------------------------------------- */
+function mk(st,key){ if(!st.done||!SEE()) return ''; const v=st.marks[key]; return v===true?'<span class="mk ok">✔</span>':v===false?'<span class="mk ko">✘</span>':''}
+function cls(st,key){ if(!st.done||!SEE()) return ''; const v=st.marks[key]; return v===true?'ok':v===false?'ko':''}
+function corr(t){return SHOWANS?`<span class="corr">✔ ${t}</span>`:''}
+function hintH(d){return d.hint?`<details class="hint"><summary>🦉 Indice de Bergamote</summary><div>${d.hint}</div></details>`:''}
+function wState(st,keys){ if(!st.done||!SEE()||!keys.length) return ''; const v=keys.map(k=>st.marks[k]); if(v.every(x=>x===true))return 'ok'; if(v.every(x=>x===false))return 'ko'; return 'part'}
+
+function cellH(m,st,c){
+  const dis=st.done?'disabled':'';
+  if(typeof c==='string') return `<td>${esc(c)}</td>`;
+  if(c.span) return `<td colspan="${c.span}" style="text-align:right;font-weight:800">${esc(c.t)}</td>`;
+  if(c.f) return `<td><input class="in" data-m="${m.id}" data-k="${c.f}" value="${esc(st.a[c.f])}" ${dis}></td>`;
+  if(c.n) return `<td style="white-space:nowrap"><input class="in num ${cls(st,c.n)}" inputmode="decimal" data-m="${m.id}" data-k="${c.n}" value="${esc(st.a[c.n])}" ${dis}>${mk(st,c.n)}${corr(fmtN(c.ans))}</td>`;
+  return '<td></td>';
+}
+function renderW(m,d){
+  const st=ms(m.id), dis=st.done?'disabled':'', a=st.a;
+  const id=`w_${m.id}_${d.k||Math.random().toString(36).slice(2)}`;
+  switch(d.type){
+  case 'html': return `<div class="doc">${d.html}</div>`;
+  case 'num': return `<div class="w ${wState(st,[d.k])}" id="${id}"><div class="q">${d.q}</div>
+     <input class="in num ${cls(st,d.k)}" inputmode="decimal" data-m="${m.id}" data-k="${d.k}" value="${esc(a[d.k])}" ${dis}> <b>${d.unit||''}</b> ${mk(st,d.k)} ${corr((d.show||fmtN(d.ans))+' '+(d.unit||''))}${hintH(d)}</div>`;
+  case 'qcm': { const v=a[d.k];
+     return `<div class="w ${wState(st,[d.k])} ${d.chat?'chat':''}" id="${id}">${d.scene?`<div class="scene">${d.scene}</div>`:''}${d.q?`<div class="q">${d.q}</div>`:''}<div class="opts">${d.opts.map((o,i)=>{
+       let c=String(v)===String(i)?'sel':''; if(st.done&&SEE()&&String(v)===String(i)) c+= i===d.ans?' good':' bad'; if(SHOWANS&&i===d.ans) c+=' good';
+       return `<label class="opt ${c}"><input type="radio" name="${m.id}_${d.k}" data-m="${m.id}" data-k="${d.k}" value="${i}" ${String(v)===String(i)?'checked':''} ${dis}><span>${o}</span></label>`}).join('')}</div>${hintH(d)}</div>`;}
+  case 'multi': { const v=a[d.k]||[]; const keys=d.opts.map((_,i)=>d.k+'_'+i);
+     return `<div class="w ${wState(st,keys)}" id="${id}"><div class="q">${d.q}</div><div class="opts">${d.opts.map((o,i)=>{
+       let c=v[i]?'sel':''; if(st.done&&SEE()) c+= st.marks[d.k+'_'+i]?' good':' bad'; if(SHOWANS&&d.ans[i]) c+=' good';
+       return `<label class="opt ${c}"><input type="checkbox" data-m="${m.id}" data-k="${d.k}" data-i="${i}" ${v[i]?'checked':''} ${dis}><span>${o}</span></label>`}).join('')}</div>${hintH(d)}</div>`;}
+  case 'sel': { const keys=d.rows.map((_,i)=>d.k+'_'+i);
+     return `<div class="w ${wState(st,keys)}" id="${id}"><div class="q">${d.q}</div><div class="tbl-wrap"><table>${d.rows.map((r,i)=>{const kk=d.k+'_'+i;
+       return `<tr><td>${r.l}</td><td style="width:42%;white-space:nowrap"><select class="in ${cls(st,kk)}" data-m="${m.id}" data-k="${kk}" ${dis}><option value="">— choisir —</option>${d.choices.map((c,j)=>`<option value="${j}" ${String(a[kk])===String(j)?'selected':''}>${c}</option>`).join('')}</select>${mk(st,kk)}${corr(d.choices[r.ans])}</td></tr>`}).join('')}</table></div>${hintH(d)}</div>`;}
+  case 'table': { const keys=[]; d.rows.forEach(r=>r.forEach(c=>{if(c&&c.n)keys.push(c.n)}));
+     return `<div class="w ${wState(st,keys)}" id="${id}">${d.q?`<div class="q">${d.q}</div>`:''}<div class="tbl-wrap"><table><tr>${d.head.map(h=>`<th>${h}</th>`).join('')}</tr>${d.rows.map(r=>`<tr>${r.map(c=>cellH(m,st,c)).join('')}</tr>`).join('')}</table></div>${hintH(d)}</div>`;}
+  case 'order': { const p=a[d.k]||d.start.slice(); const keys=p.map((_,i)=>d.k+'_'+i);
+     return `<div class="w order ${wState(st,keys)}" id="${id}"><div class="q">${d.q}</div><ol>${p.map((it,pos)=>`<li class="${cls(st,d.k+'_'+pos)}"><span class="n">${pos+1}</span><span class="tx">${d.items[it]}</span>${st.done?(mk(st,d.k+'_'+pos)||'🔏'):`<button data-act="up" data-m="${m.id}" data-k="${d.k}" data-p="${pos}" ${pos===0?'disabled':''} aria-label="Monter">▲</button><button data-act="dn" data-m="${m.id}" data-k="${d.k}" data-p="${pos}" ${pos===p.length-1?'disabled':''} aria-label="Descendre">▼</button>`}</li>`).join('')}</ol>
+     ${SHOWANS?`<div class="corr" style="margin-top:8px">Ordre attendu : ${d.items.map((t,i)=>(i+1)+'. '+t).join(' · ')}</div>`:''}${hintH(d)}</div>`;}
+  case 'grid': { const sel=GRIDSEL[m.id+d.k]??0; const keys=d.items.map((_,i)=>d.k+'_'+i);
+     const picked=d.items.map((_,i)=>a[d.k+'_'+i]);
+     let g='<div class="h"></div>'+['A','B','C'].map(x=>`<div class="h">Allée ${x}</div>`).join('');
+     for(let lv=4;lv>=1;lv--){g+=`<div class="lv">Niv. ${lv}</div>`;['A','B','C'].forEach(al=>{const code=al+lv;const isP=picked[sel]===code;
+       g+=`<div class="cell ${isP?'picked':''}" data-act="gcell" data-m="${m.id}" data-k="${d.k}" data-c="${code}" role="button" aria-label="Case ${al}-${lv}"><span>${al}-${lv}</span></div>`})}
+     return `<div class="w ${wState(st,keys)}" id="${id}"><div class="q">${d.q}</div><div class="gridw"><div class="gitems">${d.items.map((it,i)=>{const kk=d.k+'_'+i;
+       return `<div class="gitem ${i===sel&&!st.done?'active':''} ${cls(st,kk)}" data-act="gitem" data-m="${m.id}" data-k="${d.k}" data-i="${i}">📕 ${it.l} <span class="loc">${a[kk]?a[kk][0]+'-'+a[kk][1]:'?'}</span>${mk(st,kk)}${corr(it.ans[0]+'-'+it.ans[1])}</div>`}).join('')}</div>
+       <div class="reserve" ${st.done?'style="pointer-events:none;opacity:.85"':''}>${g}</div></div>${hintH(d)}</div>`;}
+  case 'cash': { const v=a[d.k]||[]; const den=[[2000,'20 €','bill b20'],[1000,'10 €','bill b10'],[500,'5 €','bill b5'],[200,'2 €','coin cbi'],[100,'1 €','coin cbi'],[50,'50 c','coin cg'],[20,'20 c','coin cg'],[10,'10 c','coin cg'],[5,'5 c','coin cb'],[2,'2 c','coin cb'],[1,'1 c','coin cb']];
+     const lab=c=>den.find(x=>x[0]===c);
+     return `<div class="w ${wState(st,[d.k])}" id="${id}"><div class="q">${d.q}</div>
+      <div class="cashbox" ${st.done?'style="pointer-events:none;opacity:.6"':''}>${den.map(x=>`<button class="${x[2]}" data-act="cadd" data-m="${m.id}" data-k="${d.k}" data-c="${x[0]}">${x[1]}</button>`).join('')}</div>
+      <div class="muted" style="font-size:14px">🪙 Plateau de rendu (${v.length} billet(s)/pièce(s)) :</div>
+      <div class="tray">${v.map((c,i)=>{const x=lab(c);return `<span class="${x[2]}" data-act="crem" data-m="${m.id}" data-k="${d.k}" data-i="${i}" title="Retirer">${x[1]}</span>`}).join('')||'<span class="muted" style="transform:none">Vide</span>'}</div>
+      ${!st.done&&v.length?`<button class="btn sec small" style="margin-top:8px" data-act="cclr" data-m="${m.id}" data-k="${d.k}">Vider le plateau</button>`:''} ${mk(st,d.k)} ${corr('10 € + 5 € + 2 € + 2 € + 50 c + 20 c + 5 c + 2 c + 2 c')}
+      </div>`;}
+  case 'free': return `<div class="w free"><label>${d.label}</label>${d.short?`<input class="in" data-m="${m.id}" data-k="${d.k}" value="${esc(a[d.k])}" ${dis}>`:`<textarea class="in" data-m="${m.id}" data-k="${d.k}" ${dis}>${esc(a[d.k])}</textarea>`}</div>`;
+  case 'label': { const keys=d.fields.filter(f=>!f.free).map(f=>f.k);
+     return `<div class="w ${wState(st,keys)}" id="${id}"><div class="label"><div class="lt">ÉTIQUETTE COLIS · RETRAIT MAGASIN</div>${d.fields.map(f=>`<div class="fl"><b>${f.l} :</b><span><input class="in ${f.free?'':cls(st,f.k)}" style="width:100%" data-m="${m.id}" data-k="${f.k}" value="${esc(a[f.k])}" ${dis}>${f.free?'':mk(st,f.k)+corr(f.sample)}</span></div>${f.hint?`<details class="hint"><summary>🦉 Indice</summary><div>${f.hint}</div></details>`:''}`).join('')}</div></div>`;}
+  case 'card': { const g=k=>esc(a[k]||'');
+     return `<div class="w"><div class="q">Crée l'étiquette « Coup de cœur » de l'album « Le Dragon de la place Stanislas » (aperçu en direct ✨) :</div>
+      <div class="row" style="align-items:flex-start;gap:24px"><div style="flex:1;min-width:250px" class="free">
+       <label>Titre</label><input class="in" data-m="${m.id}" data-k="ct" value="${g('ct')||'Le Dragon de la place Stanislas'}" ${dis}>
+       <label style="margin-top:8px">Âge conseillé</label><input class="in" data-m="${m.id}" data-k="ca" value="${g('ca')}" placeholder="ex. 4-7 ans" ${dis}>
+       <label style="margin-top:8px">Mon avis (2 phrases qui donnent envie)</label><textarea class="in" data-m="${m.id}" data-k="cv" ${dis}>${g('cv')}</textarea>
+       <label style="margin-top:8px">Prix TTC</label><input class="in" data-m="${m.id}" data-k="cp" value="${g('cp')}" placeholder="ex. 14,90 €" ${dis}>
+       <label style="margin-top:8px">Signature</label><input class="in" data-m="${m.id}" data-k="cs" value="${g('cs')}" placeholder="ex. Léa, équipière" ${dis}></div>
+       <div class="plv" id="plvprev"><div class="cc">✦ Coup de cœur ✦</div><div class="tt" data-pv="ct">${g('ct')||'Le Dragon de la place Stanislas'}</div><span class="ag" data-pv="ca">${g('ca')||'âge'}</span><div class="av" data-pv="cv">${g('cv')||'Ton avis apparaîtra ici…'}</div><div class="sg" data-pv="cs">${g('cs')}</div><div class="pr" data-pv="cp">${g('cp')}</div></div></div>
+      </div>`;}
+  }
+  return '';
+}
+
+/* ---------------------------------------------------------------------
+   CORRECTION
+--------------------------------------------------------------------- */
+function okNum(v,d){const x=pnum(v);if(isNaN(x))return false;const t=(d.tol??0)+1e-9;if(Math.abs(x-d.ans)<=t)return true;return (d.alt||[]).some(z=>Math.abs(x-z)<=t)}
+function gradeW(m,d){
+  const a=ms(m.id).a; let got=0,max=0; const mk={};
+  switch(d.type){
+  case 'num': mk[d.k]=okNum(a[d.k],d); max=d.pts||1; got=mk[d.k]?max:0; break;
+  case 'qcm': mk[d.k]=String(a[d.k])===String(d.ans); max=d.pts||1; got=mk[d.k]?max:0; break;
+  case 'multi': { const v=a[d.k]||[]; let c=0; const any=v.some(Boolean); d.opts.forEach((_,i)=>{const ok=!!v[i]===d.ans[i];mk[d.k+'_'+i]=ok;if(ok)c++}); max=d.pts; got=any?d.pts*c/d.opts.length:0; break;}
+  case 'sel': d.rows.forEach((r,i)=>{const kk=d.k+'_'+i;mk[kk]=String(a[kk])===String(r.ans);max+=1;if(mk[kk])got+=1}); break;
+  case 'table': d.rows.forEach(r=>r.forEach(c=>{if(c&&c.n){mk[c.n]=okNum(a[c.n],c);max+=c.pts||1;if(mk[c.n])got+=c.pts||1}})); break;
+  case 'order': { const touched=!!a[d.k]; const p=a[d.k]||d.start; let c=0; p.forEach((v,i)=>{mk[d.k+'_'+i]=touched&&v===i;if(v===i)c++}); max=d.pts; got=touched?d.pts*c/p.length:0; break;}
+  case 'grid': d.items.forEach((it,i)=>{const kk=d.k+'_'+i;mk[kk]=a[kk]===it.ans;max+=1;if(mk[kk])got+=1}); break;
+  case 'cash': { const s=(a[d.k]||[]).reduce((x,y)=>x+y,0); mk[d.k]=s===d.target; max=d.pts; got=mk[d.k]?d.pts:0; break;}
+  case 'label': d.fields.filter(f=>!f.free).forEach(f=>{const v=norm(a[f.k]);mk[f.k]=f.re.some(r=>r.test(v));max+=1;if(mk[f.k])got+=1}); break;
+  }
+  return {got,max,mk};
+}
+function gradeM(m){let got=0,max=0,marks={};allW(m).forEach(d=>{const r=gradeW(m,d);got+=r.got;max+=r.max;Object.assign(marks,r.mk)});return {got,max,marks}}
+function emptyCount(m){const a=ms(m.id).a;let n=0;allW(m).forEach(d=>{
+  if(d.type==='num'||d.type==='qcm'){if(a[d.k]==null||a[d.k]==='')n++}
+  else if(d.type==='sel')d.rows.forEach((_,i)=>{const v=a[d.k+'_'+i];if(v==null||v==='')n++});
+  else if(d.type==='table')d.rows.forEach(r=>r.forEach(c=>{if(c&&c.n&&(a[c.n]==null||a[c.n]===''))n++}));
+  else if(d.type==='grid')d.items.forEach((_,i)=>{if(!a[d.k+'_'+i])n++});
+  else if(d.type==='cash'){if(!(a[d.k]||[]).length)n++}
+  else if(d.type==='order'){if(!a[d.k])n++}
+  else if(d.type==='multi'){if(!(a[d.k]||[]).some(Boolean))n++}
+  else if(d.type==='label')d.fields.filter(f=>!f.free).forEach(f=>{if(!a[f.k])n++});
+ });return n}
+function fillCorrect(m){const a=ms(m.id).a;allW(m).forEach(d=>{
+  if(d.type==='num')a[d.k]=fmtN(Math.round(d.ans*100)/100).replace('−','-');
+  if(d.type==='qcm')a[d.k]=String(d.ans);
+  if(d.type==='multi')a[d.k]=d.ans.slice();
+  if(d.type==='sel')d.rows.forEach((r,i)=>a[d.k+'_'+i]=String(r.ans));
+  if(d.type==='table')d.rows.forEach(r=>r.forEach(c=>{if(c&&c.n)a[c.n]=String(c.ans).replace('.',',')}));
+  if(d.type==='order')a[d.k]=d.items.map((_,i)=>i);
+  if(d.type==='grid')d.items.forEach((it,i)=>a[d.k+'_'+i]=it.ans);
+  if(d.type==='cash')a[d.k]=d.sample.slice();
+  if(d.type==='label')d.fields.filter(f=>!f.free).forEach(f=>a[f.k]=f.sample);
+ });save()}
+
+/* ---------------------------------------------------------------------
+   CODE ÉLÈVE (court, avec clé de contrôle)
+   10 caractères : 9 scores (0-10, 11 = non faite) + 3 autoévaluations (0-4)
+--------------------------------------------------------------------- */
+function tagOf(e){const c=s=>String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase().replace(/[^A-Z]/g,'');
+  return ((c(e.prenom)+'XXX').slice(0,3)+(c(e.nom)+'X').slice(0,1))}
+function autoPole(p){const v=M.filter(m=>m.pole===p).flatMap(m=>(S.m[m.id]?.ae||[]).filter(x=>x>0));return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):0}
+function makeCode(){
+  const sc=M.map(m=>{const s=S.m[m.id];return s&&s.done?s.pts:11});
+  const au=[1,2,3].map(autoPole);
+  let N=0; for(let i=8;i>=0;i--) N=N*12+sc[i]; for(let i=2;i>=0;i--) N=N*5+au[i];
+  let body=''; for(let i=0;i<8;i++){body=ALPH[N%32]+body;N=Math.floor(N/32)}
+  const tag=tagOf(S.eleve), h=fnv(tag+body+SALT)%1024;
+  return tag+'-'+body.slice(0,4)+'-'+body.slice(4)+ALPH[h>>5]+ALPH[h&31];
+}
+function decodeCode(raw){
+  const s=String(raw||'').toUpperCase().replace(/\s/g,''); const i=s.indexOf('-'); if(i<1) return null;
+  const tag=s.slice(0,i), rest=s.slice(i+1).replace(/-/g,'');
+  if(!/^[A-Z]{4}$/.test(tag)||rest.length!==10) return null;
+  for(const ch of rest) if(!ALPH.includes(ch)) return null;
+  const body=rest.slice(0,8), ck=rest.slice(8), h=fnv(tag+body+SALT)%1024;
+  const valid = ck===ALPH[h>>5]+ALPH[h&31];
+  let N=0; for(const ch of body) N=N*32+ALPH.indexOf(ch);
+  const au=[]; for(let k=0;k<3;k++){au.push(N%5);N=Math.floor(N/5)}
+  const sc=[]; for(let k=0;k<9;k++){sc.push(N%12);N=Math.floor(N/12)}
+  if(sc.some(x=>x>11)||N!==0) return {tag,valid:false,sc:[],au:[]};
+  return {tag,valid,sc,au};
+}
+
+/* ---------------------------------------------------------------------
+   VUES
+--------------------------------------------------------------------- */
+const TEACHER_NAME = 'LEGER Isabelle';
+const SEE = () => TEACH;
+const GRILLES = {
+ m1:['Lire un cadencier et repérer le stock d\'alerte','Calculer une quantité à commander','Compléter un bon de commande (HT, TVA, TTC)','Transmettre ma proposition de commande à la bonne personne'],
+ m2:['Contrôler les colis devant le transporteur','Comparer le bon de commande, le bon de livraison et les produits reçus','Repérer et signaler une anomalie'],
+ m3:['Retrouver un produit grâce à son emplacement','Respecter les règles de stockage et de sécurité','Préparer et étiqueter une commande client'],
+ m4:['Choisir le bon niveau de présentation d\'un produit','Savoir quand faire le réassort','Calculer un linéaire développé'],
+ m5:['Calculer un prix HT et un montant de TVA','Appliquer la règle du prix unique du livre','Classer les produits sous le bon panneau','Créer une PLV qui donne envie'],
+ m6:['Distinguer démarque connue et démarque inconnue','Calculer un écart d\'inventaire et sa valeur','Réaliser un paquet-cadeau soigné'],
+ m7:['Préparer mon poste avant l\'ouverture','Accueillir un client (S.B.A.M., règle des 4 × 20)','Adapter ma posture et mon langage'],
+ m8:['Poser des questions ouvertes et fermées','Reformuler le besoin du client','Choisir et argumenter un produit adapté','Reconnaître les parcours omnicanaux'],
+ m9:['Calculer un ticket avec une remise','Rendre la monnaie sans erreur','Remettre un colis client en toute sécurité','Traiter une réclamation avec calme']
+};
+const PTS = [[70,150],[140,85],[215,135],[290,55],[365,115],[440,45],[515,120],[590,70],[655,140]];
+
+function topbar(){
+  const cons=[1,2,3].map(p=>`<div class="g" title="Pôle ${p}">${M.filter(m=>m.pole===p).map(m=>{const s=S.m[m.id];return `<span class="s ${s&&s.done?'on':''}" data-m="${m.id}">★</span>`}).join('')}</div>`).join('');
+  const tabs=[['map','🗺️ Carte des missions'],['company','🏛️ L\'entreprise'],['context','🎬 Ma situation'],['tools','🧰 Boîte à outils'],['bilan','🌌 Mon bilan & mon code']];
+  return `<div class="top"><div class="in"><div class="brand">✦ Le Grimoire des Étoiles</div>
+   <span class="who">${S.eleve?`🧑‍🎓 ${esc(S.eleve.prenom)} ${esc(S.eleve.nom)} · ${esc(S.eleve.classe)}`:''}${TEACH?' · <span class="tag" style="background:#f5c451;color:#222">Mode enseignante</span>':''}</span>
+   <div class="constel" title="Ta constellation : une étoile par mission accomplie">${cons}</div>
+   <button class="iconbtn" data-act="sound" title="Son">${S.sound?'🔊':'🔇'}</button></div>
+   <nav class="tabs">${tabs.map(t=>`<button class="${VIEW===t[0]||(VIEW==='mission'&&t[0]==='map')?'act':''}" data-go="${t[0]}">${t[1]}</button>`).join('')}<button class="lock ${VIEW==='teacher'?'act':''}" data-go="teacher">🔐 Enseignante</button></nav></div>`;
+}
+function footer(){return `<footer class="foot">✦ Le Grimoire des Étoiles · Scénario pédagogique de <b>${TEACHER_NAME}</b>, enseignante en Économie-Gestion · CAP Équipier polyvalent du commerce · Situation fictive ✦</footer>`}
+function render(){
+  const app=$('#app');
+  if(VIEW==='intro'||!S.eleve){app.innerHTML=vIntro();return}
+  let h=topbar()+'<main>';
+  if(VIEW==='map')h+=vMap(); else if(VIEW==='company')h+=vCompany(); else if(VIEW==='context')h+=vContext();
+  else if(VIEW==='tools')h+=vTools(); else if(VIEW==='bilan')h+=vBilan(); else if(VIEW==='teacher')h+=vTeacher();
+  else if(VIEW==='mission')h+=vMission(mById(CUR));
+  app.innerHTML=h+'</main>'+footer();
+}
+function animIn(){
+  if(REDUCED) return;
+  let i=0; document.querySelectorAll('main .card, main .floor, main .door, main .mhead, main .w').forEach(el=>{el.classList.add('anim-in');el.style.animationDelay=Math.min(i++*70,1400)+'ms'});
+  document.querySelectorAll('.wordify').forEach(wordify);
+}
+function wordify(el){ let i=0; const walk=n=>{ [...n.childNodes].forEach(c=>{ if(c.nodeType===3){ const parts=c.textContent.split(/(\s+)/); const frag=document.createDocumentFragment();
+   parts.forEach(p=>{ if(/^\s+$/.test(p)||!p){frag.appendChild(document.createTextNode(p));return} const s=document.createElement('span');s.className='wd';s.textContent=p;s.style.animationDelay=Math.min(i++*28,2200)+'ms';frag.appendChild(s)}); c.replaceWith(frag)} else if(c.nodeType===1) walk(c)})}; walk(el)}
+function go(v,id){VIEW=v;CUR=id||null;render();scrollTo({top:0,behavior:'smooth'});animIn();if(v==='mission')updProg()}
+function portal(x,y,pole,cb){ if(REDUCED){cb();return} const p=document.createElement('div');p.className='portal';p.style.left=x+'px';p.style.top=y+'px';p.style.background=`radial-gradient(circle, #fff 0%, var(--p${pole}) 35%, #0b1030 75%)`;
+  document.body.appendChild(p);chime('tap');setTimeout(()=>{cb();p.classList.add('out');setTimeout(()=>p.remove(),500)},480)}
+
+function vIntro(){
+  return `<div class="intro"><div class="sparkring" aria-hidden="true">${Array.from({length:14},(_,i)=>`<i style="--a:${i*25.7}deg;--d:${(i%5)*.6}s">✦</i>`).join('')}</div>
+   <div class="book" id="book">
+   <div class="owl bob">🦉</div>
+   <div style="color:#f8e2b0;font-weight:800;letter-spacing:2px;font-size:13px">CAP ÉQUIPIER POLYVALENT DU COMMERCE · 1EPC3</div>
+   <h1 class="glowt">Le Grimoire des Étoiles</h1>
+   <div class="sub">Opération Saint-Nicolas au <b>Hall du Livre</b> · Nancy<br>3 pôles · 9 missions · 9 étoiles à allumer</div>
+   <label for="ip">Ton prénom</label><input id="ip" autocomplete="off" value="${esc(S.eleve?.prenom||'')}">
+   <label for="in">Ton nom</label><input id="in" autocomplete="off" value="${esc(S.eleve?.nom||'')}">
+   <label for="ic">Ta classe</label><input id="ic" value="${esc(S.eleve?.classe||'1EPC3')}">
+   <button class="btn" style="margin-top:16px;width:100%" data-act="start">✨ Ouvrir le grimoire</button>
+   <div class="author">Scénario conçu par <b>${TEACHER_NAME}</b><br>Enseignante en Économie-Gestion</div>
+   <div style="color:#d9c48f;font-size:12px;margin-top:6px">Situation professionnelle fictive à visée pédagogique</div>
+  </div></div>`;
+}
+
+function vMap(){
+  const done=M.filter(m=>S.m[m.id]?.done).length;
+  const msg=done===0?`Bienvenue, <b>${esc(S.eleve.prenom)}</b> ! Je suis <b>Bergamote</b>, la chouette gardienne du Grimoire. La librairie a 3 étages : chaque étage est un <b>pôle</b> de ton CAP. Commence par lire « Ma situation », puis ouvre la porte de ton choix. Chaque mission accomplie allume une étoile !`
+   : done<9?`Bravo, tu as déjà accompli <b>${done} mission${done>1?'s':''}</b> sur 9 ! Continue, la constellation de Saint-Nicolas commence à briller ✨`
+   : `🌟 INCROYABLE ! Les 9 étoiles brillent. Va dans « Mon bilan » : ton diplôme t'attend !`;
+  const fl=[1,2,3].map(p=>{const P=POLES[p];const nd=M.filter(m=>m.pole===p&&S.m[m.id]?.done).length;return `<div class="floor f${p} sparkle-bg ${nd===3?'lit':''}"><div class="lvl">Étage ${p} · ${P.lieu} · Épreuve ${P.ep} <span class="lamps">${'💡'.repeat(nd)}${'<span style="opacity:.3">💡</span>'.repeat(3-nd)}</span></div><h3>${P.ic} Pôle ${p} – ${P.nom}</h3>
+   <div class="doors">${M.filter(m=>m.pole===p).map(m=>{const s=S.m[m.id];const started=Object.keys(s?.a||{}).length||(s?.ae||[]).length;
+     return `<button class="door ${s?.done?'done':''}" data-open="${m.id}" data-pole="${m.pole}"><span class="dstar ${s?.done?'on':''}">★</span><div class="ic">${m.ic}</div><div class="nm">Mission ${m.n} · ${m.title}</div><div class="st">${s?.done?'✨ Mission accomplie'+(SEE()?` · <b>${s.pts*10} %</b>`:''):started?'🔮 En cours…':'🚪 À découvrir'}</div></button>`}).join('')}</div></div>`}).join('');
+  return `<div class="card dark"><div class="owlbar"><div class="o bob">🦉</div><div class="speech wordify">${msg}</div></div></div>
+   <div class="tower">${fl}</div><div class="flyowl" aria-hidden="true">🦉</div>
+   <p style="color:#c9c3e6;font-size:13.5px;margin-top:14px">Les « étages » de la carte sont une image du jeu : ils ne décrivent pas l'organisation réelle du magasin.</p>`;
+}
+
+function countAll(m){const a={};let n=0;allW(m).forEach(d=>{
+  if(d.type==='num'||d.type==='qcm'||d.type==='cash'||d.type==='order'||d.type==='multi')n++;
+  else if(d.type==='sel')n+=d.rows.length; else if(d.type==='table')d.rows.forEach(r=>r.forEach(c=>{if(c&&c.n)n++}));
+  else if(d.type==='grid')n+=d.items.length; else if(d.type==='label')n+=d.fields.filter(f=>!f.free).length;});return n}
+function updProg(){ if(VIEW!=='mission') return; const m=mById(CUR), st=ms(m.id); const tot=countAll(m)+GRILLES[m.id].length; const filled=countAll(m)-emptyCount(m)+(st.ae||[]).filter(Boolean).length;
+  const p=st.done?100:Math.round(filled/tot*100); const b=$('#prog i'), t=$('#progt'); if(b){b.style.width=p+'%'} if(t){t.textContent=st.done?'Mission accomplie ✨':`Avancement : ${p} %`} }
+function gridAE(m){const st=ms(m.id),g=GRILLES[m.id],v=st.ae||[],dis=st.done?'disabled':'';
+ return `<div class="card aegrid" id="aeg"><h3>🪞 Ma grille d'autoévaluation – Mission ${m.n}</h3><p class="muted">Avant de valider, évalue-toi honnêtement pour chaque compétence. Il n'y a pas de mauvaise réponse : c'est ton regard sur ton travail.</p>
+ <div class="tbl-wrap"><table class="aet"><tr><th>Je suis capable de…</th>${AE_LV.map(l=>`<th class="c"><span style="font-size:22px">${l.e}</span><br>${l.t}</th>`).join('')}</tr>
+ ${g.map((c,i)=>`<tr><td>${c}</td>${AE_LV.map(l=>`<td class="c"><button class="aeb ${v[i]===l.v?'on':''}" data-ge="${m.id}" data-i="${i}" data-v="${l.v}" ${dis} aria-label="${l.t}">${l.e}</button></td>`).join('')}</tr>`).join('')}</table></div>
+ <div class="free" style="margin-top:10px"><label>💭 Ce que je dois encore travailler :</label><textarea class="in" data-m="${m.id}" data-k="ae_txt" ${dis}>${esc(st.a.ae_txt)}</textarea></div></div>`}
+
+function vMission(m){
+  const st=ms(m.id), P=POLES[m.pole];
+  let h=`<div class="mhead p${m.pole} sparkle-bg"><button class="iconbtn" data-go="map">← Carte</button>
+   <div style="margin-top:8px"><span class="pill" style="background:rgba(0,0,0,.25)">Pôle ${m.pole} · ${P.nom}</span></div>
+   <h2>${m.ic} Mission ${m.n} – ${m.title}</h2>
+   ${m.comp.map(c=>`<span class="comp">🎯 Compétence du référentiel : <b>${c}</b></span>`).join(' ')}
+   <div class="prow"><div class="prog" id="prog"><i></i></div><span id="progt"></span></div></div>`;
+  h+=`<div class="card"><div class="tutor"><div class="av bob">👩‍💼</div><div><div class="name">Camille Roussel · tutrice (personnage fictif)</div><div class="speech wordify">${m.story}</div></div></div>
+   <details class="res" open><summary>Ressources de la mission</summary>${m.res}</details></div>`;
+  h+=`<div class="card sect"><h3>✨ Activités</h3>${m.acts.map(d=>renderW(m,d)).join('')}</div>`;
+  h+=`<div class="card sect" style="background:var(--parch2)"><h3>📝 ${m.annexT}</h3>${m.annex.map(d=>renderW(m,d)).join('')}</div>`;
+  h+=gridAE(m);
+  if(st.done){
+    if(SEE()){const p=st.pts*10;
+      h+=`<div class="card valid"><div class="tag" style="background:#f5c451;color:#222;margin-bottom:10px">Vue enseignante</div><div class="result"><div class="ring" style="--p:${p}"><span>${p}%</span></div><div><p style="font-weight:800;font-size:18px">${st.pts} / 10 points</p><p class="muted">Réponses justes en vert ✔, à revoir en rouge ✘.</p></div></div></div>`;
+    } else {
+      h+=`<div class="card valid done-card"><div class="bigstar">★</div><h3>Mission ${m.n} accomplie !</h3><p style="font-size:17px">Ton travail est scellé dans le grimoire 🔏. Ton enseignante, <b>Mme ${TEACHER_NAME.split(' ')[0]}</b>, découvrira tes résultats grâce à ton code.</p>
+      <button class="btn sec" data-go="map">← Retour à la carte</button> ${nextBtn(m)}</div>`;
+    }
+  } else {
+    h+=`<div class="card valid"><p>Quand tu as tout terminé <b>et rempli ta grille d'autoévaluation</b>, valide ta mission. <b>Attention :</b> après validation, tes réponses sont scellées.</p><button class="btn pulse" data-act="validate" data-m="${m.id}">✨ Valider ma mission</button></div>`;
+  }
+  return h;
+}
+function nextBtn(m){const i=M.indexOf(m);const nx=M.slice(i+1).concat(M.slice(0,i)).find(x=>!S.m[x.id]?.done);return nx?`<button class="btn" data-open="${nx.id}" data-pole="${nx.pole}">Mission suivante : ${nx.ic} ${nx.title} →</button>`:`<button class="btn" data-go="bilan">🌟 Voir mon bilan</button>`}
+
+function ritual(m,cb){
+  const ov=document.createElement('div');ov.className='ritual';ov.style.setProperty('--pc',`var(--p${m.pole})`);
+  ov.innerHTML=`<div class="circle"><svg viewBox="0 0 200 200"><defs><path id="rp" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+   <circle cx="100" cy="100" r="92" fill="none" stroke="#f5c451" stroke-width="1.5" stroke-dasharray="4 6"/><circle cx="100" cy="100" r="66" fill="none" stroke="#ffe08f" stroke-width="1"/>
+   <polygon points="100,22 168,140 32,140" fill="none" stroke="#f5c451" stroke-width="1" opacity=".7"/><polygon points="100,178 32,60 168,60" fill="none" stroke="#f5c451" stroke-width="1" opacity=".7"/>
+   <text font-size="9.5" fill="#ffe08f" letter-spacing="2" font-weight="800"><textPath href="#rp">✦ RÉCEPTIONNER ✦ STOCKER ✦ METTRE EN VALEUR ✦ CONSEILLER ✦ VENDRE ✦ FIDÉLISER ✦</textPath></text></svg></div>
+   <div class="rstar">★</div><div class="rtxt">Mission ${m.n} accomplie !<small>Une nouvelle étoile s'allume dans ta constellation…</small></div>`;
+  document.body.appendChild(ov);chime('win');setTimeout(()=>burst(innerWidth/2,innerHeight/2,50),300);
+  setTimeout(()=>{cb();const tgt=document.querySelector(`.constel .s[data-m="${m.id}"]`),sr=ov.querySelector('.rstar');
+    if(tgt&&!REDUCED){const r=tgt.getBoundingClientRect(),s=sr.getBoundingClientRect();sr.style.transition='transform 1s cubic-bezier(.6,-0.4,.3,1.1)';sr.style.transform=`translate(${r.left+r.width/2-(s.left+s.width/2)}px,${r.top+r.height/2-(s.top+s.height/2)}px) scale(.12)`}
+    ov.classList.add('fade');setTimeout(()=>{ov.remove();if(tgt){const r=tgt.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,16);tgt.classList.add('pop');chime('tap')}},1050)},2100);
+}
+
+function constellation(){
+  const dn=M.map(m=>!!S.m[m.id]?.done);
+  let lines='';for(let i=0;i<8;i++){const a=PTS[i],b=PTS[i+1];lines+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" class="${dn[i]&&dn[i+1]?'lon':'loff'}"/>`}
+  return `<svg viewBox="0 0 720 200" class="consvg" role="img" aria-label="Ma constellation">${lines}${PTS.map((p,i)=>`<g class="${dn[i]?'son':'soff'}" style="animation-delay:${i*.15}s"><circle cx="${p[0]}" cy="${p[1]}" r="${dn[i]?13:8}"/><text x="${p[0]}" y="${p[1]+34}" text-anchor="middle">M${i+1}</text></g>`).join('')}</svg>`;
+}
+
+function vCompany(){
+  const q=[{q:'Dans quelle rue se trouve le Hall du Livre ?',o:['Place Stanislas','Rue Saint-Dizier','Rue des Ponts'],a:1},
+           {q:'Sur combien de niveaux s\'étend le nouveau magasin ?',o:['1','3','5'],a:1},
+           {q:'Combien de références (titres différents) environ ?',o:['900','90 000','9 millions'],a:1},
+           {q:'En France, qui fixe le prix d\'un livre neuf ?',o:['Le libraire','Le client','L\'éditeur'],a:2}];
+  return `<div class="card"><h2 class="t" style="color:#7a4b0c">🏛️ Présentation de l'entreprise</h2>
+   <div class="fict">✅ Les informations de cette page sont <b>réelles</b> et sourcées (numéros entre crochets, voir la Boîte à outils). Les personnages, documents et chiffres des missions sont <b>fictifs</b>.</div>
+   <div class="grid2" style="margin-top:16px"><div>
+   <div class="tbl-wrap"><table>
+    <tr><th colspan="2">🪪 Fiche d'identité</th></tr>
+    <tr><td><b>Enseigne</b></td><td>Le Hall du Livre</td></tr>
+    <tr><td><b>Type de commerce</b></td><td>Librairie indépendante générale – commerce de détail de livres en magasin spécialisé (code NAF 47.61Z)<sup>[6]</sup></td></tr>
+    <tr><td><b>Adresse</b></td><td>53-55 rue Saint-Dizier, 54000 Nancy (centre-ville)<sup>[5][6]</sup></td></tr>
+    <tr><td><b>Surface de vente</b></td><td>1 300 m² sur 3 niveaux desservis par un ascenseur, près d'1 km d'étagères<sup>[2]</sup></td></tr>
+    <tr><td><b>Assortiment</b></td><td>Environ 90 000 références<sup>[2]</sup></td></tr>
+    <tr><td><b>Actionnaire principal</b></td><td>L'éditeur Antoine Gallimard, environ 54 % du capital (2023)<sup>[3]</sup></td></tr>
+    <tr><td><b>Direction</b></td><td>Astrid Canada, directrice (2023)<sup>[3]</sup></td></tr>
+   </table></div></div>
+   <div><div class="doc"><h4>📜 Un peu d'histoire</h4><p>Le Hall du Livre est une librairie historique de Nancy, longtemps installée au 38 rue Saint-Dizier. Elle a fait partie du groupe Chapitre, puis a été reprise par Antoine Gallimard après la liquidation judiciaire de ce groupe (en 2013 ou 2014 selon les sources)<sup>[2][3][4]</sup>.</p>
+   <p>En 2023, la librairie a traversé la rue pour s'installer dans l'ancien magasin Vaxelaire, au 53 rue Saint-Dizier : environ 3 millions d'euros de travaux, hors mobilier<sup>[2]</sup>. Le nouvel établissement est immatriculé depuis le 1<sup>er</sup> novembre 2023<sup>[6]</sup>.</p></div>
+   <div class="doc"><h4>🤝 Une librairie engagée dans la vie de Nancy</h4><p>Le Hall du Livre fait partie de l'association <b>Lire à Nancy</b>, qui réunit des libraires nancéiens et installe une librairie géante place de la Carrière pendant le festival <b>Le Livre sur la Place</b><sup>[7]</sup>.</p></div></div></div></div>
+   <div class="card quiz"><h3>🔮 Quiz découverte (pour t'échauffer, non noté)</h3>${q.map((x,i)=>{const v=S.decouv[i];return `<div class="w ${v==null?'':String(v)===String(x.a)?'ok':'ko'}"><div class="q">${x.q}</div><div class="opts">${x.o.map((o,j)=>`<label class="opt ${String(v)===String(j)?(j===x.a?'good':'bad'):''}"><input type="radio" name="dq${i}" data-dq="${i}" value="${j}" ${String(v)===String(j)?'checked':''}><span>${o}</span></label>`).join('')}</div></div>`}).join('')}</div>`;
+}
+
+function vContext(){
+  return `<div class="card"><h2 class="t" style="color:#7a4b0c">🎬 Ta situation professionnelle</h2>
+   <div class="fict">⚠️ <b>Situation fictive à visée pédagogique.</b> L'enseigne et son adresse sont réelles ; la tutrice, les clients, les fournisseurs, les titres de livres, les prix et les documents sont inventés pour l'exercice.</div>
+   <div class="tutor" style="margin-top:16px"><div class="av">👩‍💼</div><div class="speech">
+   <p>Bonjour <b>${esc(S.eleve.prenom)}</b>,</p>
+   <p>Bienvenue au <b>Hall du Livre</b> ! Tu commences aujourd'hui, <b>lundi 23 novembre 2026</b>, une période de formation en milieu professionnel de 3 semaines. Je m'appelle <b>Camille Roussel</b> (personnage fictif), je suis responsable du rayon Jeunesse et je serai ta tutrice.</p>
+   <p>Tu arrives au meilleur moment : avec la <b>Saint-Nicolas (6 décembre)</b>, une fête très importante en Lorraine, puis Noël, les familles viennent chercher des idées de cadeaux. Il faut recevoir les livraisons, remplir les rayons et bien conseiller les clients.</p>
+   <p>Je te confie l'<b>opération « Les Étoiles de Saint-Nicolas »</b> : 9 missions, réparties sur les 3 pôles de ton CAP. À toi de jouer !</p></div></div></div>
+   <div class="grid2"><div class="card"><h3>🗓️ Ton planning</h3><div class="tbl-wrap"><table><tr><th>Semaine</th><th>Pôle</th><th>Missions</th></tr>
+   <tr><td>1 · du 23 au 28/11</td><td><span class="pill p1bg">Pôle 1</span> Recevoir et suivre les commandes</td><td>1, 2, 3</td></tr>
+   <tr><td>2 · du 30/11 au 05/12</td><td><span class="pill p2bg">Pôle 2</span> Mettre en valeur et approvisionner</td><td>4, 5, 6</td></tr>
+   <tr><td>3 · du 07 au 12/12</td><td><span class="pill p3bg">Pôle 3</span> Conseiller et accompagner le client</td><td>7, 8, 9</td></tr></table></div></div>
+   <div class="card"><h3>📜 Les règles du Grimoire</h3><ul>
+    <li>Chaque mission contient : un message de ta tutrice, des <b>ressources</b>, des <b>activités</b> et une <b>annexe à compléter</b>.</li>
+    <li>🦉 Les <b>indices de Bergamote</b> t'aident si tu bloques.</li>
+    <li>🪞 À la fin de chaque mission, tu remplis ta <b>grille d'autoévaluation</b>.</li>
+    <li>✨ Quand tu valides, ta mission est <b>scellée</b> : vérifie bien avant ! Chaque mission accomplie allume une étoile.</li>
+    <li>🤫 Tes résultats sont secrets : seule Mme LEGER les découvre grâce à ton <b>code</b> (onglet « Mon bilan »).</li>
+    <li>💾 Ton travail est enregistré sur cet ordinateur, dans ce navigateur.</li></ul></div></div>`;
+}
+
+function vTools(){
+  const lex=[['Bon de commande (BC)','Document qui liste les produits demandés au fournisseur.'],['Bon de livraison (BL)','Document qui accompagne la livraison et liste ce que le fournisseur a envoyé.'],['Cadencier','Tableau de suivi des stocks et des ventes qui aide à décider des commandes.'],['Stock d\'alerte','Niveau de stock à partir duquel il faut commander pour éviter la rupture.'],['Rupture','Le produit n\'est plus disponible en rayon.'],['Réassort','Action de compléter le rayon.'],['Rotation des stocks','Les produits les plus anciens sont vendus en premier.'],['Linéaire développé','Longueur du meuble au sol × nombre de tablettes.'],['PLV','Publicité sur le lieu de vente (affichette, étiquette coup de cœur…).'],['Démarque','Écart entre le stock théorique et le stock réel.'],['Inventaire','Comptage physique de tous les produits.'],['HT / TTC','Hors taxes / toutes taxes comprises. TTC = HT + TVA.'],['Omnicanal','Le client utilise plusieurs canaux (magasin, site, réseaux sociaux, téléphone) dans son parcours d\'achat.'],['Reformulation','Résumer le besoin du client pour vérifier qu\'on a compris.'],['Réclamation','Le client exprime un mécontentement sur un produit ou un service.']];
+  return `<div class="card"><h2 class="t" style="color:#7a4b0c">🧰 Boîte à outils</h2>
+   <div class="grid2"><div><h3>📖 Lexique</h3><div class="tbl-wrap"><table>${lex.map(l=>`<tr><td><b>${l[0]}</b></td><td>${l[1]}</td></tr>`).join('')}</table></div></div>
+   <div><h3>🧮 Formules magiques</h3><div class="doc"><ul>
+    <li>Quantité à commander = Stock maxi − Stock actuel</li>
+    <li>Montant HT = Quantité × Prix unitaire HT</li>
+    <li>TVA = Montant HT × taux (5,5 % pour les livres)</li>
+    <li>TTC = HT + TVA · HT = TTC ÷ 1,055</li>
+    <li>Prix mini d'un livre = Prix éditeur × 0,95 (rabais maxi 5 %)</li>
+    <li>Écart d'inventaire = Stock réel − Stock théorique</li>
+    <li>Valeur de la démarque = Quantité manquante × Prix d'achat HT</li>
+    <li>Monnaie à rendre = Somme donnée − Net à payer</li></ul></div>
+    <h3>🎯 Les compétences de ton CAP</h3>${[1,2,3].map(p=>`<div class="doc"><span class="pill p${p}bg">Pôle ${p}</span> <b>${POLES[p].nom}</b><ul>${POLES[p].comps.map(c=>`<li>${c}</li>`).join('')}</ul></div>`).join('')}</div></div></div>
+   <div class="card src"><h3>📚 Sources (consultées le 08/11/2026)</h3><ol>${SOURCES.map(s=>`<li>${s}</li>`).join('')}</ol></div>`;
+}
+const SOURCES=[
+ 'Ministère de l\'Éducation nationale – Eduscol, Référentiel du CAP Équipier polyvalent du commerce (annexes de l\'arrêté du 29 octobre 2019). <a href="https://referentiels-professionnels.eduscol.education.fr/CAP_EPC/Annexes_CAP%20EPC191029.pdf" target="_blank" rel="noopener">referentiels-professionnels.eduscol.education.fr</a>',
+ 'Elodie Carreira, « Plus grande et plus belle : à Nancy, le Hall du livre déménage à l\'automne », <i>Livres Hebdo</i>, 10/07/2023. <a href="https://www.livreshebdo.fr/article/plus-grande-et-plus-belle-nancy-le-hall-du-livre-demenage-lautomne" target="_blank" rel="noopener">livreshebdo.fr</a>',
+ '« Le groupe Gallimard injecte plusieurs millions d\'euros pour créer une librairie au centre-ville de Nancy », <i>Le Journal des Entreprises</i>, 2023. <a href="https://www.lejournaldesentreprises.com/article/le-groupe-gallimard-injecte-plusieurs-millions-deuros-pour-creer-une-librairie-au-centre-ville-de-2065033" target="_blank" rel="noopener">lejournaldesentreprises.com</a>',
+ '« Hall du livre entame une cure de jouvence », <i>Livres Hebdo</i> (date non indiquée dans l\'extrait consulté). <a href="https://www.livreshebdo.fr/article/hall-du-livre-entame-une-cure-de-jouvence" target="_blank" rel="noopener">livreshebdo.fr</a>',
+ 'Acceslibre (beta.gouv.fr), fiche « Hall du Livre », 55 rue Saint-Dizier, Nancy. <a href="https://acceslibre.beta.gouv.fr/app/54-nancy/a/librairie/erp/hall-du-livre-2/" target="_blank" rel="noopener">acceslibre.beta.gouv.fr</a>',
+ 'Xerfi, fiche entreprise « Hall du Livre », SIREN 799 324 124, NAF 4761Z. <a href="https://www.xerfi.com/etudes-par-entreprise/hall-du-livre_799324124" target="_blank" rel="noopener">xerfi.com</a>',
+ 'Ville de Nancy, programme du festival Le Livre sur la Place (association Lire à Nancy). <a href="https://lelivresurlaplace.nancy.fr/fileadmin/LSP/PDF/programme-lsp.pdf" target="_blank" rel="noopener">lelivresurlaplace.nancy.fr</a>',
+ 'L-Expert-comptable.com, « TVA : taux réduit pour les livres » (loi n° 81-766 du 10 août 1981, article 278-0 bis du CGI). <a href="https://l-expert-comptable.com/a/530138-tva-taux-reduit-pour-livres.html" target="_blank" rel="noopener">l-expert-comptable.com</a>',
+ 'Assemblée nationale, réponse à la question écrite n° 17972 (Xe législature) sur le rabais de 5 % prévu par la loi du 10 août 1981. <a href="https://questions.assemblee-nationale.fr/dyn/10/questions/QANR5L10QE17972.pdf" target="_blank" rel="noopener">assemblee-nationale.fr</a>'
+];
+
+function aeMean(id){const v=(S.m[id]?.ae||[]).filter(Boolean);return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):0}
+function vBilan(){
+  const done=M.filter(m=>S.m[m.id]?.done).length, grids=M.filter(m=>(S.m[m.id]?.ae||[]).filter(Boolean).length===GRILLES[m.id].length).length;
+  const rows=M.map(m=>{const s=S.m[m.id];const am=aeMean(m.id);const started=Object.keys(s?.a||{}).length;
+    return `<tr><td><span class="pill p${m.pole}bg">P${m.pole}</span> ${m.ic} M${m.n} · ${m.title}</td><td>${s?.done?'<span class="tag" style="background:#fff2c8;color:#7a4b0c">✨ Accomplie</span>':started?'🔮 En cours':'<span class="muted">À découvrir</span>'}</td><td>${am?AE_LV[am-1].e+' '+AE_LV[am-1].t:'<span class="muted">—</span>'}</td>${SEE()?`<td style="text-align:right;font-weight:800;white-space:nowrap">${s?.done?s.pts*10+' %':'—'}</td>`:''}</tr>`}).join('');
+  const all=done===9;
+  return `<div class="card dark" style="text-align:center"><h2 class="t">🌌 Ma constellation de Saint-Nicolas</h2>${constellation()}
+   <div class="kpi dk"><div><b class="count" data-to="${done}">0</b>/9 missions accomplies</div><div><b class="count" data-to="${done}">0</b> étoile${done>1?'s':''} allumée${done>1?'s':''}</div><div><b class="count" data-to="${grids}">0</b>/9 grilles d'autoévaluation</div></div></div>
+   <div class="card"><h3>📜 Mon parcours</h3><div class="tbl-wrap"><table><tr><th>Mission</th><th>Statut</th><th>Mon autoévaluation</th>${SEE()?'<th>Réussite</th>':''}</tr>${rows}</table></div>
+   <p class="muted" style="font-size:14px">Tes résultats sont secrets 🤫 : seule ton enseignante peut les lire grâce à ton code.</p></div>
+   <div class="card" style="text-align:center"><h3>🔑 Mon code à envoyer à Mme ${TEACHER_NAME.split(' ')[0]}</h3>
+    <p>Ce code magique contient ton travail et tes autoévaluations. Envoie-le via le lien du <b>Digipad Classe</b>.</p>
+    <div id="codeOut">${S._lastCode?`<div class="code">${S._lastCode}</div>`:''}</div>
+    <div class="row" style="justify-content:center;margin-top:14px"><button class="btn" data-act="gencode">✨ Générer mon code</button><button class="btn sec" data-act="copy">📋 Copier</button><button class="btn sec" data-act="print">🖨️ Imprimer / PDF de mon dossier</button></div>
+    ${all?`<div style="margin-top:20px"><button class="btn pulse" data-act="diploma">🎓 Recevoir mon diplôme du Grimoire</button></div>`:''}</div>`;
+}
+
+/* ---------- espace enseignante ---------- */
+function vTeacher(){
+  if(!TEACH) return `<div class="card" style="max-width:520px;margin:30px auto;text-align:center"><div style="font-size:50px">🔐</div><h2>Espace enseignante</h2><p class="muted">Saisissez le code enseignant pour corriger les codes élèves, voir le corrigé et gérer ce poste.</p>
+   <input class="in" id="tcode" type="password" style="width:100%;font-size:20px;text-align:center" placeholder="Code enseignant"><br><br><button class="btn" data-act="tlogin">Entrer</button></div>`;
+  return `<div class="card"><h2 class="t" style="color:#7a4b0c">🔐 Espace enseignante</h2>
+   <div class="grid2"><div><h3>🔎 Corriger un code élève</h3><input class="in" id="dcode" style="width:100%;font-size:20px;font-family:monospace;text-transform:uppercase" placeholder="ex. LEAM-7KQ2-9XPA3R"><br><br><button class="btn" data-act="decode">Décoder</button><div id="dout" style="margin-top:14px"></div></div>
+   <div><h3>👥 Tableau de classe</h3><p class="muted" style="font-size:14px">Collez plusieurs codes (un par ligne). Vous pouvez ajouter le nom avant : <code>Léa Martin : LEAM-…</code></p><textarea class="in" id="bcodes" style="min-height:150px;font-family:monospace"></textarea><br><button class="btn" data-act="batch">Analyser la classe</button></div></div>
+   <div id="bout" style="margin-top:16px"></div></div>
+   <div class="card"><h3>🖥️ Sur ce poste (${esc(S.eleve?.prenom)} ${esc(S.eleve?.nom)})</h3>
+    <div class="row"><label class="opt" style="display:inline-flex"><input type="checkbox" data-act="showans" ${SHOWANS?'checked':''}><span><b>Afficher le corrigé</b> dans les missions</span></label></div>
+    <div class="row" style="margin-top:12px"><select class="in" id="tm">${M.map(m=>`<option value="${m.id}">M${m.n} · ${m.title}${S.m[m.id]?.done?' (validée '+S.m[m.id].pts*10+' %)':''}</option>`).join('')}</select>
+     <button class="btn sec small" data-act="treset">↺ Déverrouiller / réinitialiser la mission</button>
+     <button class="btn sec small" data-act="tfill">🪄 Démo : remplir avec le corrigé</button></div>
+    <div class="row" style="margin-top:12px"><button class="btn sec small" data-act="tnew">🆕 Nouvel élève sur ce poste (efface tout)</button><button class="btn sec small" data-act="tout">🚪 Quitter le mode enseignante</button></div></div>
+   <div class="card"><h3>🎯 Repères référentiel – CAP EPC</h3><div class="tbl-wrap"><table><tr><th>Mission</th><th>Pôle / épreuve</th><th>Compétences évaluées</th><th>Zones de rédaction</th></tr>
+    ${M.map(m=>`<tr><td>${m.ic} M${m.n} · ${m.title}</td><td><span class="pill p${m.pole}bg">P${m.pole}</span> ${POLES[m.pole].ep}</td><td>${m.comp.join(' · ')}</td><td>${m.annex.filter(d=>d.type==='free'||d.type==='card').length?'Oui':'—'}</td></tr>`).join('')}</table></div>
+    <p class="muted" style="font-size:14px">Chaque mission est notée automatiquement sur 10 points. Les zones de texte libre et la grille d'autoévaluation ne sont pas notées automatiquement. Les élèves ne voient ni leurs pourcentages ni les corrections : seul le mode enseignante les affiche : demandez l'impression PDF du dossier pour les lire. Le code élève contient une clé de contrôle : un code modifié à la main apparaît « non authentique ».</p></div>`;
+}
+function decodeHtml(r,name){
+  if(!r) return '<div class="note">Code illisible. Vérifiez le format : 4 lettres, un tiret, puis 10 caractères.</div>';
+  if(!r.valid) return `<div class="note" style="background:#fdecec;border-color:var(--ko)">⚠️ Code <b>non authentique</b> (erreur de recopie ou code modifié). Demandez à l'élève de le renvoyer.</div>`;
+  const done=r.sc.map((s,i)=>s<=10?i:-1).filter(i=>i>=0);
+  const pp=p=>{const ix=done.filter(i=>M[i].pole===p);return ix.length?Math.round(ix.reduce((a,i)=>a+r.sc[i]*10,0)/ix.length):null};
+  const g=done.length?Math.round(done.reduce((a,i)=>a+r.sc[i]*10,0)/done.length):null;
+  const luc=p=>{const a=r.au[p-1],s=pp(p);if(!a||s==null)return '<span class="muted">—</span>';const d=a-lvlOf(s);return d===0?'<span class="tag" style="background:#e3f6ea;color:#126b3a">Lucide</span>':d>0?'<span class="tag" style="background:#fff0d6;color:#8a5a00">Se surestime</span>':'<span class="tag" style="background:#e8eeff;color:#2d4bb3">Se sous-estime</span>'};
+  return `<div class="doc"><div class="row" style="justify-content:space-between"><b style="font-size:18px">${esc(name||'')} ${esc(r.tag)}</b><span class="tag" style="background:#e3f6ea;color:#126b3a">✔ Code authentique</span></div>
+   <div class="kpi" style="margin:10px 0"><div><b>${done.length}/9</b>missions</div><div><b>${g==null?'—':g+' %'}</b>réussite</div><div><b>${g==null?'—':(Math.round(g*2)/10).toString().replace('.',',')}</b>indicatif /20</div></div>
+   <table>${M.map((m,i)=>{const s=r.sc[i];return `<tr><td><span class="pill p${m.pole}bg">P${m.pole}</span> M${m.n} · ${m.title}</td><td style="width:35%">${s>10?'<span class="muted">Non faite</span>':`<div class="bar"><i class="lv${lvlOf(s*10)}" style="width:${Math.max(s*10,3)}%"></i></div>`}</td><td style="text-align:right;font-weight:800;white-space:nowrap">${s>10?'—':s*10+' %'}</td></tr>`}).join('')}</table>
+   <table><tr><th>Pôle</th><th>Réussite</th><th>Autoévaluation</th><th>Regard sur soi</th></tr>${[1,2,3].map(p=>`<tr><td><span class="pill p${p}bg">P${p}</span> ${POLES[p].ep}</td><td>${pp(p)==null?'—':pp(p)+' %'}</td><td>${r.au[p-1]?AE_LV[r.au[p-1]-1].e+' '+AE_LV[r.au[p-1]-1].t:'<span class="muted">Non renseignée</span>'}</td><td>${luc(p)}</td></tr>`).join('')}</table></div>`;
+}
+let LASTBATCH=[];
+function batch(){
+  const lines=$('#bcodes').value.split(/\n+/).map(l=>l.trim()).filter(Boolean);
+  LASTBATCH=lines.map(l=>{let name='',code=l;const k=l.lastIndexOf(':');if(k>0){name=l.slice(0,k).trim();code=l.slice(k+1).trim()}
+    const m=code.match(/[A-Za-z]{4}\s*-\s*[0-9A-Za-z\-\s]{10,14}/);const r=decodeCode(m?m[0]:code);return {name,code,r}});
+  const pp=(r,p)=>{const ix=r.sc.map((s,i)=>s<=10&&M[i].pole===p?i:-1).filter(i=>i>=0);return ix.length?Math.round(ix.reduce((a,i)=>a+r.sc[i]*10,0)/ix.length):null};
+  const gl=r=>{const ix=r.sc.map((s,i)=>s<=10?i:-1).filter(i=>i>=0);return ix.length?Math.round(ix.reduce((a,i)=>a+r.sc[i]*10,0)/ix.length):null};
+  const ok=LASTBATCH.filter(x=>x.r&&x.r.valid);
+  const avgM=M.map((_,i)=>{const v=ok.filter(x=>x.r.sc[i]<=10).map(x=>x.r.sc[i]*10);return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):null});
+  let h=`<div class="tbl-wrap"><table><tr><th>Élève</th>${M.map(m=>`<th>M${m.n}</th>`).join('')}<th>P1</th><th>P2</th><th>P3</th><th>Global</th><th>/20</th><th>Code</th></tr>`;
+  LASTBATCH.forEach(x=>{const r=x.r;if(!r||!r.valid){h+=`<tr><td>${esc(x.name||x.code)}</td><td colspan="15" style="color:var(--ko)">⚠️ Code ${r?'non authentique':'illisible'}</td></tr>`;return}
+    const g=gl(r);h+=`<tr><td><b>${esc(x.name||r.tag)}</b></td>${r.sc.map(s=>`<td style="text-align:center">${s>10?'—':s*10}</td>`).join('')}${[1,2,3].map(p=>`<td>${pp(r,p)??'—'}</td>`).join('')}<td><b>${g??'—'}</b></td><td>${g==null?'—':(Math.round(g*2)/10).toString().replace('.',',')}</td><td>✔</td></tr>`});
+  h+=`<tr style="background:#efe3c4"><td><b>Moyenne classe</b></td>${avgM.map(v=>`<td style="text-align:center"><b>${v??'—'}</b></td>`).join('')}<td colspan="6"></td></tr></table></div>
+   <p class="muted" style="font-size:14px">Valeurs en %. La mission la plus réussie et la moins réussie vous indiquent quoi retravailler en classe.</p>
+   <button class="btn sec small" data-act="csv">⬇️ Exporter en CSV (tableur)</button>`;
+  $('#bout').innerHTML=h;
+}
+function csv(){
+  const rows=[['Élève','Tag',...M.map(m=>'M'+m.n),'Pôle 1','Pôle 2','Pôle 3','Global %','Note indicative /20','Auto P1','Auto P2','Auto P3','Code','Authentique']];
+  LASTBATCH.forEach(x=>{const r=x.r;if(!r||!r.valid){rows.push([x.name,'',...Array(9).fill(''),'','','','','','','','',x.code,'non']);return}
+    const ps=[1,2,3].map(p=>{const ix=r.sc.map((s,i)=>s<=10&&M[i].pole===p?i:-1).filter(i=>i>=0);return ix.length?Math.round(ix.reduce((a,i)=>a+r.sc[i]*10,0)/ix.length):''});
+    const ix=r.sc.map((s,i)=>s<=10?i:-1).filter(i=>i>=0);const g=ix.length?Math.round(ix.reduce((a,i)=>a+r.sc[i]*10,0)/ix.length):'';
+    rows.push([x.name,r.tag,...r.sc.map(s=>s>10?'':s*10),...ps,g,g===''?'':String(Math.round(g*2)/10).replace('.',','),...r.au.map(a=>a||''),x.code,'oui'])});
+  const txt='﻿'+rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(';')).join('\r\n');
+  const b=new Blob([txt],{type:'text/csv;charset=utf-8'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='grimoire_resultats_1EPC3.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
+}
+
+/* ---------- impression ---------- */
+function ansText(m,d,a){
+  const v=k=>a[k]==null||a[k]===''?'—':esc(a[k]);
+  switch(d.type){
+   case 'num': return `<p>${d.q} <b>${v(d.k)} ${d.unit||''}</b></p>`;
+   case 'qcm': return `<p>${d.scene||''} ${d.q||''} <b>${a[d.k]!=null&&a[d.k]!==''?d.opts[+a[d.k]]:'—'}</b></p>`;
+   case 'multi': return `<p>${d.q} <b>${(a[d.k]||[]).map((x,i)=>x?d.opts[i]:null).filter(Boolean).join(' ; ')||'—'}</b></p>`;
+   case 'sel': return `<p>${d.q}</p><ul>${d.rows.map((r,i)=>`<li>${r.l} → <b>${a[d.k+'_'+i]!=null&&a[d.k+'_'+i]!==''?d.choices[+a[d.k+'_'+i]]:'—'}</b></li>`).join('')}</ul>`;
+   case 'table': return `<table>${d.rows.map(r=>`<tr>${r.map(c=>typeof c==='string'?`<td>${esc(c)}</td>`:c.span?`<td colspan="${c.span}">${esc(c.t)}</td>`:`<td><b>${v(c.f||c.n)}</b></td>`).join('')}</tr>`).join('')}</table>`;
+   case 'order': return `<p>${d.q}</p><ol>${(a[d.k]||d.start).map(i=>`<li>${d.items[i]}</li>`).join('')}</ol>`;
+   case 'grid': return `<p>${d.q}</p><ul>${d.items.map((it,i)=>`<li>${it.l} → <b>${v(d.k+'_'+i)}</b></li>`).join('')}</ul>`;
+   case 'cash': return `<p>Monnaie rendue : <b>${(a[d.k]||[]).map(c=>c>=100?(c/100)+' €':c+' c').join(' + ')||'—'}</b></p>`;
+   case 'label': return `<ul>${d.fields.map(f=>`<li>${f.l} : <b>${v(f.k)}</b></li>`).join('')}</ul>`;
+   case 'free': return `<p>${d.label}<br><b>${v(d.k).replace(/\n/g,'<br>')}</b></p>`;
+   case 'card': return `<p>PLV coup de cœur : <b>${v('ct')}</b> · ${v('ca')} · « ${v('cv')} » · ${v('cp')} · ${v('cs')}</p>`;
+  }return ''}
+function doPrint(withDip){
+  const e=S.eleve, done=M.filter(m=>S.m[m.id]?.done);
+  let h='';
+  if(withDip) h+=diplomaHtml();
+  h+=`<h1>Le Grimoire des Étoiles – Dossier de ${esc(e.prenom)} ${esc(e.nom)} (${esc(e.classe)})</h1><p>CAP Équipier polyvalent du commerce · Situation fictive au Hall du Livre (Nancy) · Imprimé le ${new Date().toLocaleDateString('fr-FR')}</p>
+   <p><b>Code :</b> ${makeCode()} · <b>Missions accomplies :</b> ${done.length}/9 · Enseignante : ${TEACHER_NAME}</p>`;
+  M.forEach(m=>{const s=ms(m.id);h+=`<div class="pm"><h3>Mission ${m.n} – ${m.title} (Pôle ${m.pole}) : ${s.done?(SEE()?s.pts*10+' %':'accomplie'):'non validée'}</h3>${allW(m).filter(d=>d.type!=='html').map(d=>ansText(m,d,s.a)).join('')}<p><b>Autoévaluation :</b></p><ul>${GRILLES[m.id].map((c,i)=>`<li>${c} : <b>${(s.ae||[])[i]?AE_LV[s.ae[i]-1].e+' '+AE_LV[s.ae[i]-1].t:'—'}</b></li>`).join('')}</ul><p>À retravailler : <b>${esc(s.a.ae_txt||'—')}</b></p></div>`});
+  $('#printArea').innerHTML=h; setTimeout(()=>window.print(),150);
+}
+function diplomaHtml(){const e=S.eleve;const done=M.filter(m=>S.m[m.id]?.done);const g=Math.round(done.reduce((a,m)=>a+S.m[m.id].pts*10,0)/Math.max(1,done.length));
+  return `<div class="diploma"><div style="font-size:60px">🦉</div><h1>Diplôme du Grimoire des Étoiles</h1><p style="font-size:18px">L'Ordre des Étoiles de Saint-Nicolas certifie que</p><p style="font-size:30px;font-weight:800">${esc(e.prenom)} ${esc(e.nom)}</p><p style="font-size:18px">a allumé les 9 étoiles de l'opération Saint-Nicolas<br>et mérite le titre d'<b>Équipier(ère) Enchanteur(eresse)</b>.</p><p style="font-size:40px;color:#e0a82e">${'★'.repeat(9)}</p><p>Classe ${esc(e.classe)} · CAP Équipier polyvalent du commerce</p><p style="margin-top:24px">L'enseignante : <b>${TEACHER_NAME}</b></p><p style="font-size:12px;color:#777">Diplôme fictif et pédagogique, sans valeur officielle.</p></div>`}
+
+/* ---------------------------------------------------------------------
+   ÉVÉNEMENTS
+--------------------------------------------------------------------- */
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.m&&t.dataset.k&&t.type!=='radio'&&t.type!=='checkbox'&&t.tagName!=='SELECT'){
+    const st=ms(t.dataset.m); if(st.done) return; st.a[t.dataset.k]=t.value; save();
+    const pv=document.querySelector(`[data-pv="${t.dataset.k}"]`); if(pv){pv.textContent=t.value||({ca:'âge',cv:'Ton avis apparaîtra ici…'}[t.dataset.k]||'');pv.classList.remove('flash');void pv.offsetWidth;pv.classList.add('flash')} updProg();
+  }
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.dataset.dq!=null){S.decouv[t.dataset.dq]=t.value;save();render();chime('tap');return}
+  if(t.dataset.act==='showans'){SHOWANS=t.checked;toast(SHOWANS?'Corrigé affiché dans les missions':'Corrigé masqué');return}
+  if(!t.dataset.m) return; const st=ms(t.dataset.m); if(st.done) return;
+  if(t.type==='radio'){st.a[t.dataset.k]=t.value;save();t.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.contains(t)));chime('tap')}
+  else if(t.type==='checkbox'){const arr=st.a[t.dataset.k]||[];arr[+t.dataset.i]=t.checked;st.a[t.dataset.k]=arr;save();t.closest('.opt').classList.toggle('sel',t.checked)}
+  else if(t.tagName==='SELECT'){st.a[t.dataset.k]=t.value;save();t.classList.remove('flash');void t.offsetWidth;t.classList.add('flash');chime('tap')}
+  updProg();
+});
+function rerenderW(mid,k){const m=mById(mid);const d=allW(m).find(x=>x.k===k);const el=document.getElementById(`w_${mid}_${k}`);if(el&&d){const tmp=document.createElement('div');tmp.innerHTML=renderW(m,d);el.replaceWith(tmp.firstElementChild)}}
+document.addEventListener('click',e=>{
+  const g=e.target.closest('[data-go]'); if(g){go(g.dataset.go);return}
+  const o=e.target.closest('[data-open]'); if(o){portal(e.clientX||innerWidth/2,e.clientY||innerHeight/2,o.dataset.pole||mById(o.dataset.open).pole,()=>go('mission',o.dataset.open));return}
+  const ge=e.target.closest('[data-ge]'); if(ge){const st=ms(ge.dataset.ge);if(st.done)return;st.ae=st.ae||[];st.ae[+ge.dataset.i]=+ge.dataset.v;S._lastCode=null;save();ge.closest('tr').querySelectorAll('.aeb').forEach(x=>x.classList.toggle('on',x===ge));const r=ge.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,6);chime('tap');updProg();return}
+  const b=e.target.closest('[data-act]'); if(!b) return; const act=b.dataset.act;
+  const mid=b.dataset.m, k=b.dataset.k;
+  if(act==='start'){const p=$('#ip').value.trim(),n=$('#in').value.trim(),c=$('#ic').value.trim()||'1EPC3';
+    if(!p||!n){toast('🦉 Écris ton prénom et ton nom pour ouvrir le grimoire !');return}
+    const changed=S.eleve&&(S.eleve.prenom!==p||S.eleve.nom!==n)&&Object.keys(S.m).length;
+    const doStart=()=>{S.eleve={prenom:p,nom:n,classe:c};save();$('#book').classList.add('opening');document.querySelector('.sparkring')?.classList.add('boom');const r=$('#book').getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height/2,50);chime('win');setTimeout(()=>go('map'),1000)};
+    if(changed){modal(`<h3>Un autre élève a déjà travaillé ici</h3><p>Le travail de <b>${esc(S.eleve.prenom)} ${esc(S.eleve.nom)}</b> est enregistré sur ce poste. Seule l'enseignante peut l'effacer (espace 🔐). Veux-tu continuer avec ce travail ?</p>`,[{t:'Continuer ce travail',f:()=>go('map')},{t:'Annuler',sec:true}]);return}
+    doStart();return}
+  if(act==='sound'){S.sound=!S.sound;save();render();chime('tap');return}
+  if(act==='up'||act==='dn'){const m=mById(mid),d=allW(m).find(x=>x.k===k),st=ms(mid);const p=st.a[k]||d.start.slice();const i=+b.dataset.p,j=act==='up'?i-1:i+1;[p[i],p[j]]=[p[j],p[i]];st.a[k]=p;save();rerenderW(mid,k);chime('tap');return}
+  if(act==='gitem'){GRIDSEL[mid+k]=+b.dataset.i;rerenderW(mid,k);return}
+  if(act==='gcell'){const st=ms(mid);if(st.done)return;const i=GRIDSEL[mid+k]??0;st.a[k+'_'+i]=b.dataset.c;const d=allW(mById(mid)).find(x=>x.k===k);const nx=d.items.findIndex((_,j)=>!st.a[k+'_'+j]);GRIDSEL[mid+k]=nx>=0?nx:i;save();rerenderW(mid,k);chime('tap');return}
+  if(act==='cadd'){const st=ms(mid);if(st.done)return;(st.a[k]=st.a[k]||[]).push(+b.dataset.c);save();rerenderW(mid,k);chime('tap');return}
+  if(act==='crem'){const st=ms(mid);if(st.done)return;st.a[k].splice(+b.dataset.i,1);save();rerenderW(mid,k);return}
+  if(act==='cclr'){const st=ms(mid);st.a[k]=[];save();rerenderW(mid,k);return}
+  if(act==='validate'){const m=mById(mid);const st0=ms(mid);const g=GRILLES[mid];
+    if((st0.ae||[]).filter(Boolean).length<g.length){toast('🦉 Remplis d\'abord ta grille d\'autoévaluation !');const el=$('#aeg');el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');return}
+    const n=emptyCount(m);
+    modal(`<div style="font-size:46px" class="bob">🦉</div><h3>Sceller la mission ${m.n} ?</h3>${n?`<p class="note">Il reste <b>${n}</b> réponse(s) vide(s).</p>`:'<p>Toutes tes réponses sont remplies. 👍</p>'}<p>Après validation, tu ne pourras plus modifier tes réponses.</p>`,
+      [{t:'✨ Oui, je valide',f:()=>{const r=gradeM(m);const st=ms(mid);st.done=true;st.pts=Math.max(0,Math.min(10,Math.round(r.got)));st.marks=r.marks;S._lastCode=null;save();
+        ritual(m,()=>{render();const el=document.querySelector('.done-card,.valid');if(el)el.scrollIntoView({block:'center'});updProg()})}},{t:'Je vérifie encore',sec:true}]);return}
+  if(act==='gencode'){if(!M.some(m=>S.m[m.id]?.done)){toast('🦉 Valide au moins une mission avant de générer ton code.');return}
+    S._lastCode=makeCode();save();$('#codeOut').innerHTML=`<div class="code">${S._lastCode}</div><p class="muted" style="font-size:14px">${M.filter(m=>S.m[m.id]?.done).length}/9 missions incluses · grilles d'autoévaluation incluses</p>`;const r=$('#codeOut').getBoundingClientRect();burst(r.left+r.width/2,r.top+20,30);chime('win');return}
+  if(act==='copy'){const c=S._lastCode||makeCode();(navigator.clipboard?navigator.clipboard.writeText(c):Promise.reject()).then(()=>toast('📋 Code copié : '+c)).catch(()=>toast('Sélectionne le code et fais Ctrl+C'));return}
+  if(act==='print'){doPrint(false);return}
+  if(act==='diploma'){modal(diplomaHtml(),[{t:'🖨️ Imprimer',f:()=>doPrint(true)},{t:'Fermer',sec:true}]);burst(innerWidth/2,innerHeight/2,70);chime('win');return}
+  if(act==='tlogin'){const v=$('#tcode').value.trim().toUpperCase();if(fnv(v+'|hdl-epc-prof')===T_HASH){TEACH=true;render();animIn();toast('Bienvenue dans l\'espace enseignante')}else{toast('Code incorrect');$('#tcode').value=''}return}
+  if(act==='tout'){TEACH=false;SHOWANS=false;go('map');return}
+  if(act==='decode'){const v=$('#dcode').value;$('#dout').innerHTML=decodeHtml(decodeCode(v));return}
+  if(act==='batch'){batch();return}
+  if(act==='csv'){csv();return}
+  if(act==='treset'){const id=$('#tm').value;delete S.m[id];S._lastCode=null;save();render();toast('Mission réinitialisée');return}
+  if(act==='tfill'){const id=$('#tm').value;const st=ms(id);if(st.done){toast('Réinitialisez d\'abord la mission');return}fillCorrect(mById(id));ms(id).ae=GRILLES[id].map(()=>3);save();go('mission',id);toast('🪄 Corrigé rempli (démo) : il ne reste qu\'à valider');return}
+  if(act==='tnew'){modal('<h3>Effacer tout le travail de ce poste ?</h3><p>Cette action est définitive.</p>',[{t:'Oui, effacer',f:()=>{S=fresh();save();TEACH=false;SHOWANS=false;go('intro')}},{t:'Annuler',sec:true}]);return}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'){if(e.target.id==='tcode')document.querySelector('[data-act="tlogin"]').click();if(e.target.id==='dcode')document.querySelector('[data-act="decode"]').click();if(['ip','in','ic'].includes(e.target.id))document.querySelector('[data-act="start"]').click()}});
+
+VIEW = S.eleve ? 'map' : 'intro';
+render(); animIn();
+// compteurs animés
+new MutationObserver(()=>{document.querySelectorAll('.count:not(.done)').forEach(el=>{el.classList.add('done');const to=+el.dataset.to;let i=0;const f=()=>{el.textContent=i;if(i++<to)setTimeout(f,120)};f()})}).observe(document.getElementById('app'),{childList:true,subtree:true});
+// traînée d'étoiles derrière la souris
+if(!REDUCED){let last=0;addEventListener('pointermove',e=>{const t=performance.now();if(t-last<55||e.pointerType!=='mouse')return;last=t;const s=document.createElement('span');s.className='trail';s.textContent=Math.random()<.5?'✦':'·';s.style.left=e.clientX+'px';s.style.top=e.clientY+'px';document.body.appendChild(s);setTimeout(()=>s.remove(),900)})}
+</script>
+</body>
+</html>
